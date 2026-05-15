@@ -1,0 +1,290 @@
+{
+  "chapters": [
+    {
+      "id": "shiji",
+      "number": 1,
+      "name": "始计篇",
+      "nameEn": "Laying Plans",
+      "quote": {
+        "zh": "兵者，国之大事，死生之地，存亡之道，不可不察也。",
+        "en": "War is a matter of vital importance to the State; a matter of life or death, the road either to survival or to ruin. Hence it is a subject of inquiry which can on no account be neglected."
+      },
+      "coreIdea": {
+        "zh": "行动之前必须充分了解情况。知敌知己，方能百战不殆。",
+        "en": "Before action, one must thoroughly understand the situation. Know the enemy and know yourself, and you need not fear the result of a hundred battles."
+      },
+      "gameplayApplication": {
+        "zh": "在进入任何腐败网络之前，先收集情报。了解网络结构、关键人物、薄弱环节。盲目行动只会暴露自己。",
+        "en": "Before entering any corruption network, gather intelligence first. Understand the network structure, key figures, and weak points. Blind action only exposes yourself."
+      },
+      "hongKongParallel": {
+        "zh": "1974年ICAC成立前，花了近一年时间秘密调查警察腐败网络，建立了完整的证据链后才展开行动。",
+        "en": "Before ICAC's establishment in 1974, nearly a year was spent secretly investigating police corruption networks, building a complete chain of evidence before taking action."
+      }
+    },
+    {
+      "id": "zuozhan",
+      "number": 2,
+      "name": "作战篇",
+      "nameEn": "Waging War",
+      "quote": {
+        "zh": "夫未战而庙算胜者，得算多也；未战而庙算不胜者，得算少也。",
+        "en": "Now the general who wins a battle makes many calculations in his temple before the battle is fought. The general who loses a battle makes but few calculations beforehand."
+      },
+      "coreIdea": {
+        "zh": "资源有限，必须精打细算。速战速决，避免持久战。",
+        "en": "Resources are limited and must be carefully managed. Quick victory, avoid prolonged conflict."
+      },
+      "gameplayApplication": {
+        "zh": "你的精神资源是有限的。每一次卧底行动都会消耗你的心理承受力。必须选择最有价值的时机行动，而非无休止地消耗自己。",
+        "en": "Your psychological resources are limited. Every undercover operation drains your mental resilience. Choose the most valuable moments to act, rather than endlessly depleting yourself."
+      },
+      "hongKongParallel": {
+        "zh": "ICAC初期资源极其有限，只有不到50名员工，面对整个警察系统的抵抗。他们必须精确选择目标，一击必中。",
+        "en": "ICAC initially had extremely limited resources, fewer than 50 staff, facing resistance from the entire police system. They had to precisely select targets for one-strike victories."
+      }
+    },
+    {
+      "id": "mougong",
+      "number": 3,
+      "name": "谋攻篇",
+      "nameEn": "Attack by Stratagem",
+      "quote": {
+        "zh": "百战百胜，非善之善者也；不战而屈人之兵，善之善者也。",
+        "en": "To fight and conquer in all your battles is not supreme excellence; supreme excellence consists in breaking the enemy's resistance without fighting."
+      },
+      "coreIdea": {
+        "zh": "最高明的胜利是不战而胜。用谋略瓦解对手，而非武力对抗。",
+        "en": "The highest victory is winning without fighting. Use strategy to dissolve the opponent, not force."
+      },
+      "gameplayApplication": {
+        "zh": "直接对抗腐败网络往往两败俱伤。更聪明的方法是让腐败分子互相猜忌、内斗，从内部瓦解整个网络。",
+        "en": "Direct confrontation with corruption networks often harms both sides. A smarter approach is to make corrupt elements suspect and fight each other, dissolving the network from within."
+      },
+      "hongKongParallel": {
+        "zh": "ICAC通过鼓励腐败警察互相举报，提供污点证人保护政策，让许多腐败分子自相残杀。",
+        "en": "ICAC encouraged corrupt police to report each other, offering witness protection policies that made many corrupt elements turn on one another."
+      }
+    },
+    {
+      "id": "junxing",
+      "number": 4,
+      "name": "军形篇",
+      "nameEn": "Tactical Dispositions",
+      "quote": {
+        "zh": "善战者，立于不败之地，而不失敌之败也。",
+        "en": "The good fighter is able to secure himself against defeat, but cannot make certain of defeating the enemy."
+      },
+      "coreIdea": {
+        "zh": "先让自己立于不败之地，再等待对手犯错。防守是最好的进攻。",
+        "en": "First make yourself invincible, then wait for the opponent's mistake. The best defense is a good offense."
+      },
+      "gameplayApplication": {
+        "zh": "在腐败环境中，首先要保护自己的正直和可信度。不要急于收集证据而暴露自己。建立一个安全的立足点，再逐步扩大影响。",
+        "en": "In a corrupt environment, first protect your own integrity and credibility. Don't rush to gather evidence and expose yourself. Establish a safe foothold, then gradually expand your influence."
+      },
+      "hongKongParallel": {
+        "zh": "1977年警察围攻ICAC总部后，港督麦理浩宣布局部特赦，这正是'立于不败之地'的策略——先稳住局势，再图反击。",
+        "en": "After police besieged ICAC headquarters in 1977, Governor MacLehose announced a partial amnesty - precisely the strategy of 'securing oneself against defeat' first, then counterattacking."
+      }
+    },
+    {
+      "id": "bingshi",
+      "number": 5,
+      "name": "兵势篇",
+      "nameEn": "Energy",
+      "quote": {
+        "zh": "故善战人之势，如转圆石于千仞之山者，势也。",
+        "en": "Thus the energy developed by good fighting men is as the momentum of a round stone rolled down a mountain thousands of feet in height."
+      },
+      "coreIdea": {
+        "zh": "积蓄力量，等待时机，一旦发动就要雷霆万钧。",
+        "en": "Build strength, wait for the moment, and once launched, strike with thunderous force."
+      },
+      "gameplayApplication": {
+        "zh": "不要零散地收集证据，而要等待一个关键时刻——当证据足够、时机成熟时，一次性将所有信息提交给ICAC，形成最大冲击力。",
+        "en": "Don't collect evidence piecemeal. Wait for a critical moment - when evidence is sufficient and timing is right - submit all information to ICAC at once for maximum impact."
+      },
+      "hongKongParallel": {
+        "zh": "ICAC在1974年10月突然逮捕35名涉嫌贪腐的警务人员，这一雷霆行动震惊全港，产生了巨大的震慑效应。",
+        "en": "ICAC's sudden arrest of 35 suspected corrupt police officers in October 1974 shocked Hong Kong, creating enormous deterrent effect."
+      }
+    },
+    {
+      "id": "xushi",
+      "number": 6,
+      "name": "虚实篇",
+      "nameEn": "Weak Points and Strong",
+      "quote": {
+        "zh": "夫兵形象水，水之形，避高而趋下；兵之形，避实而击虚。",
+        "en": "Military tactics are like unto water; for water in its natural course runs away from high places and hastens downwards. So in war, the way is to avoid what is strong and to strike at what is weak."
+      },
+      "coreIdea": {
+        "zh": "避实击虚，攻击对手的薄弱环节。不要硬碰硬。",
+        "en": "Avoid the strong, strike the weak. Attack the opponent's vulnerable points. Don't fight head-on."
+      },
+      "gameplayApplication": {
+        "zh": "腐败网络看似坚不可摧，但每个网络都有薄弱环节——新加入的成员、不满的低层、有矛盾的核心人物。找到这些'虚'，才能一击必中。",
+        "en": "Corruption networks seem invincible, but each has weak points - new recruits, dissatisfied lower levels, feuding core members. Find these 'voids' to strike effectively."
+      },
+      "hongKongParallel": {
+        "zh": "ICAC最初不直接挑战高级警官，而是先逮捕低级警务人员，从他们口中获取证词，再逐步向上渗透。",
+        "en": "ICAC initially didn't directly challenge senior officers but arrested lower-ranking police first, getting testimonies to gradually penetrate upward."
+      }
+    },
+    {
+      "id": "junzheng",
+      "number": 7,
+      "name": "军争篇",
+      "nameEn": "Maneuvering",
+      "quote": {
+        "zh": "故军争为利，军争为危。举军而争利，则不及。",
+        "en": "To secure ourselves against defeat lies in our own hands, but the opportunity of defeating the enemy is provided by the enemy himself."
+      },
+      "coreIdea": {
+        "zh": "争夺有利时机，但也充满风险。要学会取舍，不必事事争先。",
+        "en": "Competing for advantage carries both benefit and risk. Learn to choose your battles, not everything needs to be first."
+      },
+      "gameplayApplication": {
+        "zh": "在腐败斗争中，有些战斗必须打，有些则可以放弃。学会判断哪些行动能带来最大收益，哪些只会无谓消耗你的资源。",
+        "en": "In anti-corruption struggles, some battles must be fought and others abandoned. Learn to judge which actions yield maximum benefit and which only waste your resources."
+      },
+      "hongKongParallel": {
+        "zh": "1977年的局部特赦虽然引起争议，但ICAC选择接受，保存实力继续战斗，而非在不利条件下硬拼。",
+        "en": "The controversial 1977 partial amnesty allowed ICAC to accept, preserve strength and continue fighting rather than struggle under unfavorable conditions."
+      }
+    },
+    {
+      "id": "jiubian",
+      "number": 8,
+      "name": "九变篇",
+      "nameEn": "Variation in Tactics",
+      "quote": {
+        "zh": "故将通于九变之利者，知用兵矣。",
+        "en": "The general who thoroughly understands the advantages that accompany variation of tactics knows how to handle his troops."
+      },
+      "coreIdea": {
+        "zh": "情况变化无常，必须灵活应对。没有一成不变的策略。",
+        "en": "Situations change constantly, one must adapt flexibly. No strategy is permanent."
+      },
+      "gameplayApplication": {
+        "zh": "你的掩护身份可能随时被揭穿。必须准备多个应急方案：如果A计划失败，B计划是什么？如果主要联络人失联，如何与ICAC取得联系？",
+        "en": "Your cover identity may be exposed at any time. Always have backup plans: if Plan A fails, what is Plan B? If your main contact is lost, how do you reach ICAC?"
+      },
+      "hongKongParallel": {
+        "zh": "ICAC在1977年面对警察大游行时，迅速调整策略，与警队高层谈判而非对抗，最终化解危机。",
+        "en": "When facing police demonstrations in 1977, ICAC quickly adjusted strategy, negotiating with police leadership rather than confronting, ultimately defusing the crisis."
+      }
+    },
+    {
+      "id": "xingjun",
+      "number": 9,
+      "name": "行军篇",
+      "nameEn": "The Army on the March",
+      "quote": {
+        "zh": "夫惟无虑而易敌者，必擒于人。",
+        "en": "A general who recklessly underestimates the enemy will surely be captured by him."
+      },
+      "coreIdea": {
+        "zh": "行军布阵要善于观察细节，从蛛丝马迹中判断敌情。",
+        "en": "In deployment, be observant of details, judge the enemy's situation from subtle clues."
+      },
+      "gameplayApplication": {
+        "zh": "在腐败环境中，观察力是生存的关键。谁和谁交换了眼神？谁在回避谁？茶餐厅里的座位安排、红包的厚度、说话的语气——一切都是情报。",
+        "en": "In a corrupt environment, observation is key to survival. Who exchanges glances with whom? Who avoids whom? Seating arrangements at teahouses, red envelope thickness, tone of voice - everything is intelligence."
+      },
+      "hongKongParallel": {
+        "zh": "ICAC的调查员都经过严格的观察力训练，能从一个人走路的姿态判断他是否收受了贿赂——因为口袋里有钱的人走路姿势不同。",
+        "en": "ICAC investigators were trained in strict observational skills, able to tell if someone took bribes from their gait - because people with money in their pockets walk differently."
+      }
+    },
+    {
+      "id": "dixing",
+      "number": 10,
+      "name": "地形篇",
+      "nameEn": "Terrain",
+      "quote": {
+        "zh": "夫地形者，兵之助也。料敌制胜，计险厄远近，上将之道也。",
+        "en": "The natural formation of the country is the soldier's best ally; but a power of estimating the adversary, of controlling the forces of victory, and of shrewdly calculating difficulties, dangers and distances, constitutes the test of a great general."
+      },
+      "coreIdea": {
+        "zh": "地形是军队的辅助。了解环境，因地制宜。",
+        "en": "Terrain is the army's ally. Understand the environment, adapt to local conditions."
+      },
+      "gameplayApplication": {
+        "zh": "香港的每个区都有不同的'地形'——中环的地下赌场、旺角的夜总会、九龙城寨的迷宫。了解每个区域的特点，才能在其中生存和行动。",
+        "en": "Each Hong Kong district has different 'terrain' - Central's underground casinos, Mong Kok nightclubs, Walled City's maze. Understanding each area's characteristics is essential to survive and operate within them."
+      },
+      "hongKongParallel": {
+        "zh": "ICAC的调查员必须熟悉香港的每一个区域，因为腐败分子的活动范围和手段因地而异。",
+        "en": "ICAC investigators had to be familiar with every Hong Kong district, as corrupt activities and methods varied by location."
+      }
+    },
+    {
+      "id": "jiudi",
+      "number": 11,
+      "name": "九地篇",
+      "nameEn": "The Nine Situations",
+      "quote": {
+        "zh": "投之亡地然后存，陷之死地然后生。",
+        "en": "When there is no place of refuge, then there is survival. When in deadly danger, then there is life."
+      },
+      "coreIdea": {
+        "zh": "危机有时能激发最大的战斗力。在最危险的时刻，人会爆发出最大的潜能。",
+        "en": "Crisis can sometimes unleash the greatest fighting spirit. In the most dangerous moments, people unleash their greatest potential."
+      },
+      "gameplayApplication": {
+        "zh": "当你的掩护身份濒临暴露时，不要恐慌。这可能是收集最后关键证据的最好时机——因为对手也会在最放松警惕的时候暴露最多。",
+        "en": "When your cover is about to be blown, don't panic. This may be the best moment to collect final key evidence - because opponents also expose the most when they let their guard down."
+      },
+      "hongKongParallel": {
+        "zh": "1974年ICAC成立初期，面对整个警察系统的敌意，正是这种'死地'的处境激发了调查员的决心和创造力。",
+        "en": "ICAC's early days in 1974, facing hostility from the entire police system, this 'desperate ground' situation inspired investigators' determination and creativity."
+      }
+    },
+    {
+      "id": "huogong",
+      "number": 12,
+      "name": "火攻篇",
+      "nameEn": "Attack by Fire",
+      "quote": {
+        "zh": "主不可以怒而兴师，将不可以愠而致战。",
+        "en": "No ruler should put troops into the field merely to gratify his own spleen; no general should fight a battle simply out of pique."
+      },
+      "coreIdea": {
+        "zh": "愤怒和情绪不能成为决策的基础。冷静的头脑才能做出正确的判断。",
+        "en": "Anger and emotion cannot be the basis for decisions. A calm mind makes correct judgments."
+      },
+      "gameplayApplication": {
+        "zh": "面对腐败，愤怒是自然的反应。但愤怒会让你失去判断力。ICAC训练的第一课就是：永远不要让个人情感影响行动。冷静、理性、无情地执行计划。",
+        "en": "Anger is a natural reaction to corruption. But anger clouds judgment. ICAC's first training lesson: never let personal emotions affect actions. Execute plans calmly, rationally, ruthlessly."
+      },
+      "hongKongParallel": {
+        "zh": "ICAC的调查员以冷静理性闻名，他们从不因个人情绪而行动。这种专业精神是ICAC成功的关键。",
+        "en": "ICAC investigators were famous for their calm rationality, never acting on personal emotion. This professionalism was key to ICAC's success."
+      }
+    },
+    {
+      "id": "yongjian",
+      "number": 13,
+      "name": "用间篇",
+      "nameEn": "Use of Spies",
+      "quote": {
+        "zh": "先知者，不可取于鬼神，不可象于事，不可验于度，必取于人，知敌之情者也。",
+        "en": "What enables the wise sovereign and the good general to strike and conquer, and achieve things beyond the reach of ordinary men, is foreknowledge."
+      },
+      "coreIdea": {
+        "zh": "情报的来源是人。没有间谍和内线，就没有战争的胜利。",
+        "en": "The source of intelligence is people. Without spies and insiders, there is no victory in war."
+      },
+      "gameplayApplication": {
+        "zh": "你是ICAC最重要的'间谍'。你的存在、你的伪装、你的观察，就是ICAC最宝贵的情报来源。保护你的身份，就是保护ICAC的眼睛。",
+        "en": "You are ICAC's most important 'spy.' Your existence, your disguise, your observations are ICAC's most precious intelligence sources. Protecting your identity means protecting ICAC's eyes."
+      },
+      "hongKongParallel": {
+        "zh": "ICAC最大的资产不是法律权力，而是遍布各行各业的眼线——包括像你这样的卧底警察。",
+        "en": "ICAC's greatest asset was not legal authority, but informants throughout all industries - including undercover police like you."
+      }
+    }
+  ]
+}

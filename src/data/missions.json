@@ -1,0 +1,940 @@
+{
+  "missions": [
+    {
+      "id": "first_tea_money",
+      "title": { "zh": "第一笔茶钱", "en": "First Tea Money" },
+      "phase": 1,
+      "arc": 1,
+      "district": "north_point",
+      "setup": {
+        "text": {
+          "zh": "1974年4月。你刚被分配到北角警署，是一名新入职的警员。今天你的搭档是林警长，一个在这里干了十五年的老油条。午后，他带你去一家他经常光顾的茶餐厅。'新人，这里的东西不错，我请客。'他说。餐毕，老板递过来一个信封。'林SIR，这个月的。'林警长接过信封，看都没看就塞进口袋，然后转头看向你。",
+          "en": "April 1974. You've just been assigned to North Point Police Station, a fresh recruit. Today your partner is Sergeant Lam, a 15-year veteran. He takes you to a teahouse he frequents. 'New guy, the food here is good, my treat.' The owner hands over an envelope. 'Sergeant Lam, this month's.' Lam pockets it without looking, then turns to you."
+        },
+        "npcs": ["sgt_lam", "teahouse_owner"],
+        "location": "teahouse",
+        "time": "afternoon"
+      },
+      "nodes": {
+        "start": {
+          "text": {
+            "zh": "林警长看着你，眼神里有种说不清的东西。'新人，这行有很多规矩。有些规矩写在手册上，有些......'他敲了敲口袋里的信封，'是生存之道。你怎么想？'",
+            "en": "Sergeant Lam looks at you with an unreadable expression. 'New guy, this job has many rules. Some are written in the manual, others...' he taps the envelope in his pocket, '...are about survival. What do you think?'"
+          },
+          "speaker": "Sgt. Lam",
+          "speakerZh": "林警长",
+          "choices": [
+            {
+              "id": "take_money",
+              "text": { "zh": "接过信封：'谢谢长官，我懂了。'", "en": "Take the envelope: 'Thanks Sarge, I understand.'" },
+              "consequences": [
+                { "type": "stat_change", "stat": "integrity", "value": -15 },
+                { "type": "stat_change", "stat": "money", "value": 500 },
+                { "type": "relationship", "npc": "sgt_lam", "value": 20 },
+                { "type": "cover", "active": true, "networkId": "lam_network" },
+                { "type": "flag", "flag": "acceptedFirstBribe", "value": true },
+                { "type": "next_mission", "missionId": "double_life" }
+              ],
+              "nextNode": "take_response",
+              "sunziPrinciple": "yongjian",
+              "leaderParallel": "deng_xiaoping",
+              "reflection": {
+                "zh": "你选择了接受。这个选择让你进入了腐败网络，但也让你有机会从内部了解它的运作。有时，最深的渗透始于最表面的妥协。",
+                "en": "You chose to accept. This choice placed you inside the corruption network, but also gave you the opportunity to understand it from within. Sometimes, the deepest infiltration begins with the most superficial compromise."
+              }
+            },
+            {
+              "id": "refuse_openly",
+              "text": { "zh": "推开信封：'不，这不对。'", "en": "Push the envelope away: 'No, this is wrong.'" },
+              "consequences": [
+                { "type": "stat_change", "stat": "integrity", "value": 15 },
+                { "type": "stat_change", "stat": "publicTrust", "value": 10 },
+                { "type": "relationship", "npc": "sgt_lam", "value": -30 },
+                { "type": "flag", "flag": "lamHostile", "value": true },
+                { "type": "flag", "flag": "refusedFirstBribe", "value": true },
+                { "type": "next_mission", "missionId": "icac_contact" }
+              ],
+              "nextNode": "refuse_response",
+              "sunziPrinciple": "junxing",
+              "leaderParallel": "lee_kuan_yew",
+              "reflection": {
+                "zh": "你拒绝了贿赂。这个选择让你在同事中显得格格不入，但也为你打开了另一条道路。正直的代价往往是孤独。",
+                "en": "You refused the bribe. This choice made you an outsider among your colleagues, but also opened another path for you. The price of integrity is often loneliness."
+              }
+            },
+            {
+              "id": "pretend_accept",
+              "text": { "zh": "接过信封，但暗中记下一切。", "en": "Take the envelope, but secretly document everything." },
+              "visibleIf": { "flag": "examPassed", "equals": false },
+              "consequences": [
+                { "type": "stat_change", "stat": "integrity", "value": 5 },
+                { "type": "stat_change", "stat": "money", "value": 500 },
+                { "type": "relationship", "npc": "sgt_lam", "value": 10 },
+                { "type": "cover", "active": true, "networkId": "lam_network" },
+                { "type": "flag", "flag": "icacEvidence", "value": true },
+                { "type": "flag", "flag": "acceptedFirstBribe", "value": true },
+                { "type": "next_mission", "missionId": "double_life" }
+              ],
+              "nextNode": "pretend_response",
+              "sunziPrinciple": "shiji",
+              "leaderParallel": "churchill",
+              "reflection": {
+                "zh": "你假装接受，实则收集证据。这个选择需要极强的心理承受力——你将在谎言中生活，直到真相大白的那一天。",
+                "en": "You pretended to accept while gathering evidence. This choice requires immense psychological resilience - you will live in lies until the day truth prevails."
+              }
+            }
+          ]
+        },
+        "take_response": {
+          "text": {
+            "zh": "林警长笑了，拍了拍你的肩膀。'聪明。明天带你去见些朋友。'他把信封递给你。里面有五百块。你感觉口袋沉重。",
+            "en": "Lam smiles and pats your shoulder. 'Smart. Tomorrow I'll introduce you to some friends.' He hands you the envelope. It contains $500. Your pocket feels heavy."
+          },
+          "speaker": "Sgt. Lam",
+          "speakerZh": "林警长",
+          "choices": [
+            {
+              "id": "continue",
+              "text": { "zh": "离开茶餐厅", "en": "Leave the teahouse" },
+              "consequences": [
+                { "type": "stat_change", "stat": "psychological", "value": -5 },
+                { "type": "next_mission", "missionId": "double_life" }
+              ]
+            }
+          ]
+        },
+        "refuse_response": {
+          "text": {
+            "zh": "林警长的脸沉了下来。他站起来，把信封塞回口袋。'新人，你有骨气。但骨气不能当饭吃。'他转身离去，留下你一个人坐在桌前。茶餐厅里的目光都避开了你。",
+            "en": "Lam's face darkens. He stands up and pockets the envelope. 'New guy, you've got backbone. But backbone doesn't put food on the table.' He turns and leaves, leaving you alone at the table. Everyone in the teahouse avoids your gaze."
+          },
+          "speaker": "Sgt. Lam",
+          "speakerZh": "林警长",
+          "choices": [
+            {
+              "id": "continue",
+              "text": { "zh": "独自离开", "en": "Leave alone" },
+              "consequences": [
+                { "type": "stat_change", "stat": "psychological", "value": -10 },
+                { "type": "next_mission", "missionId": "icac_contact" }
+              ]
+            }
+          ]
+        },
+        "pretend_response": {
+          "text": {
+            "zh": "林警长满意地点了点头。'识时务。'他没有注意到你微微发抖的手。你把信封放进口袋，感觉像吞下了一块冰。你知道自己做了什么选择。现在，你必须证明这是正确的选择。",
+            "en": "Lam nods approvingly. 'You know which way the wind blows.' He doesn't notice your slightly trembling hand. You pocket the envelope, feeling like you swallowed ice. You know what choice you made. Now you must prove it was the right one."
+          },
+          "speaker": "Narrator",
+          "speakerZh": "旁白",
+          "choices": [
+            {
+              "id": "continue",
+              "text": { "zh": "记下今天的一切", "en": "Document everything from today" },
+              "consequences": [
+                { "type": "stat_change", "stat": "psychological", "value": -15 },
+                { "type": "next_mission", "missionId": "double_life" }
+              ]
+            }
+          ]
+        }
+      },
+      "startNode": "start",
+      "debriefTrigger": false
+    },
+    {
+      "id": "icac_contact",
+      "title": { "zh": "廉政公署的召唤", "en": "ICAC Contact" },
+      "phase": 1,
+      "arc": 1,
+      "district": "north_point",
+      "setup": {
+        "text": {
+          "zh": "拒绝林警长后的第三天。你在整理档案时，一个陌生人出现在警署门口。他穿着便装，但气质不像普通人。'PC，我想和你谈谈。关于茶餐厅的事。'他说完递上一张名片：廉政公署。",
+          "en": "Three days after refusing Sergeant Lam. While sorting files, a stranger appears at the station entrance. He's in plain clothes but doesn't look ordinary. 'PC, I'd like to talk. About the teahouse.' He hands you a business card: ICAC."
+        },
+        "npcs": ["icac_officer_chen", "sgt_lam"],
+        "location": "police_station",
+        "time": "morning"
+      },
+      "nodes": {
+        "start": {
+          "text": {
+            "zh": "廉政公署的探员姓陈。他把一份档案放在你面前——那是林警长的资料，厚厚一叠。'我们一直在调查他。你拒绝他的那一刻，我们注意到了你。'陈探员直视你的眼睛，'我们需要里面的眼睛。你愿意帮忙吗？'",
+            "en": "The ICAC agent is named Chen. He places a file before you - Sergeant Lam's dossier, thick with documents. 'We've been investigating him. The moment you refused him, we noticed you.' Agent Chen looks straight into your eyes. 'We need eyes inside. Will you help?'"
+          },
+          "speaker": "Agent Chen",
+          "speakerZh": "陈探员",
+          "choices": [
+            {
+              "id": "accept_icac",
+              "text": { "zh": "'我愿意。'", "en": "'I'm willing.'" },
+              "consequences": [
+                { "type": "stat_change", "stat": "integrity", "value": 20 },
+                { "type": "relationship", "npc": "icac_chen", "value": 30 },
+                { "type": "flag", "flag": "metICAC", "value": true },
+                { "type": "cover", "active": true, "networkId": "lam_network" },
+                { "type": "next_mission", "missionId": "double_life" }
+              ],
+              "nextNode": "accept_response",
+              "sunziPrinciple": "yongjian",
+              "leaderParallel": "deng_xiaoping"
+            },
+            {
+              "id": "decline_icac",
+              "text": { "zh": "'我不想卷入这种事。'", "en": "'I don't want to get involved.'" },
+              "consequences": [
+                { "type": "stat_change", "stat": "integrity", "value": -5 },
+                { "type": "stat_change", "stat": "publicTrust", "value": -10 },
+                { "type": "relationship", "npc": "icac_chen", "value": -10 },
+                { "type": "next_mission", "missionId": "lams_network" }
+              ],
+              "nextNode": "decline_response",
+              "sunziPrinciple": "jiubian",
+              "leaderParallel": "mandela"
+            },
+            {
+              "id": "negotiate_icac",
+              "text": { "zh": "'我需要保护。还有，如果林警长报复怎么办？'", "en": "'I need protection. And what if Lam retaliates?'" },
+              "consequences": [
+                { "type": "stat_change", "stat": "publicTrust", "value": 5 },
+                { "type": "relationship", "npc": "icac_chen", "value": 15 },
+                { "type": "flag", "flag": "metICAC", "value": true },
+                { "type": "cover", "active": true, "networkId": "lam_network" },
+                { "type": "next_mission", "missionId": "double_life" }
+              ],
+              "nextNode": "negotiate_response",
+              "sunziPrinciple": "mougong",
+              "leaderParallel": "thatcher"
+            }
+          ]
+        },
+        "accept_response": {
+          "text": {
+            "zh": "陈探员点了点头，收起档案。'从今天起，你有一个代号：青竹。我们会定期联络。记住——不要告诉任何人，包括你的家人。'他起身离开，'茶餐厅的事，按原计划进行。接受他们的一切。收集证据。'",
+            "en": "Agent Chen nods and collects the files. 'From today, you have a code name: Green Bamboo. We'll contact you regularly. Remember - tell no one, not even family.' He stands up. 'About the teahouse, proceed as planned. Accept everything. Gather evidence.'"
+          },
+          "speaker": "Agent Chen",
+          "speakerZh": "陈探员",
+          "choices": [{ "id": "continue", "text": { "zh": "开始双重生活", "en": "Begin double life" }, "consequences": [{ "type": "next_mission", "missionId": "double_life" }] }]
+        },
+        "decline_response": {
+          "text": {
+            "zh": "陈探员沉默了很久。'我理解你的顾虑。'他把档案收回包里，'但记住，沉默也是一种选择。而每个选择，都有代价。'他留下一张只有电话号码的纸条，离开了。",
+            "en": "Agent Chen is silent for a long time. 'I understand your concerns.' He puts the files back in his bag. 'But remember, silence is also a choice. And every choice has a price.' He leaves a slip of paper with only a phone number, and departs."
+          },
+          "speaker": "Agent Chen",
+          "speakerZh": "陈探员",
+          "choices": [{ "id": "continue", "text": { "zh": "回到日常工作", "en": "Return to routine" }, "consequences": [{ "type": "next_mission", "missionId": "lams_network" }] }]
+        },
+        "negotiate_response": {
+          "text": {
+            "zh": "陈探员露出一丝微笑。'谨慎是好事。我们会安排你的安全。'他递给你一个微型相机。'藏好。只拍关键的东西。不要冒险。'他顿了顿，'你是我们在里面最年轻的一个。别让我们失望。'",
+            "en": "Agent Chen shows a faint smile. 'Caution is good. We'll arrange your safety.' He hands you a miniature camera. 'Hide it well. Only photograph key things. Don't take risks.' He pauses, 'You're the youngest one we've placed inside. Don't let us down.'"
+          },
+          "speaker": "Agent Chen",
+          "speakerZh": "陈探员",
+          "choices": [{ "id": "continue", "text": { "zh": "接受装备", "en": "Accept equipment" }, "consequences": [{ "type": "next_mission", "missionId": "double_life" }] }]
+        }
+      },
+      "startNode": "start"
+    },
+    {
+      "id": "double_life",
+      "title": { "zh": "双重生活", "en": "Double Life" },
+      "phase": 1,
+      "arc": 1,
+      "district": "central",
+      "setup": {
+        "text": {
+          "zh": "一个月后。你已经习惯了这种分裂：白天，你是北角警署的警员PC，跟着林警长巡逻，笑着接过信封；晚上，你在偏僻的电话亭里，向陈探员汇报一天的所见所闻。但今天，事情变得复杂了。",
+          "en": "One month later. You've grown accustomed to the duality: by day, you're PC at North Point Station, patrolling with Sergeant Lam, smiling as you take envelopes; by night, in secluded phone booths, reporting the day's events to Agent Chen. But today, things got complicated."
+        },
+        "npcs": ["sgt_lam", "teahouse_owner", "triad_member_ah_kwong"],
+        "location": "central",
+        "time": "night"
+      },
+      "nodes": {
+        "start": {
+          "text": {
+            "zh": "林警长带你去了中环的一家地下赌场。这是他第一次让你接触'核心业务'。'今晚有个朋友要见你。'他说。一个穿着花衬衫的男人走了过来，手臂上纹着龙。'这就是你说的那个新人？'他问林警长。'可靠吗？'",
+            "en": "Lam takes you to an underground casino in Central. This is the first time he's exposed you to the 'core business.' 'A friend wants to meet you tonight,' he says. A man in a floral shirt approaches, a dragon tattoo on his arm. 'So this is the new guy?' he asks Lam. 'Reliable?'"
+          },
+          "speaker": "Ah Kwong",
+          "speakerZh": "阿光",
+          "choices": [
+            {
+              "id": "act_confident",
+              "text": { "zh": "微笑握手：'光哥好，以后多关照。'", "en": "Smile and shake hands: 'Brother Kwong, please take care of me.'" },
+              "consequences": [
+                { "type": "stat_change", "stat": "credibility", "value": 15 },
+                { "type": "relationship", "npc": "ah_kwong", "value": 20 },
+                { "type": "cover", "active": true, "networkId": "triad_network" },
+                { "type": "flag", "flag": "metTriad", "value": true }
+              ],
+              "nextNode": "confident_response",
+              "sunziPrinciple": "yongjian",
+              "leaderParallel": "deng_xiaoping"
+            },
+            {
+              "id": "act_nervous",
+              "text": { "zh": "紧张地握手", "en": "Shake hands nervously" },
+              "consequences": [
+                { "type": "stat_change", "stat": "psychological", "value": -10 },
+                { "type": "relationship", "npc": "ah_kwong", "value": -5 },
+                { "type": "cover", "active": true, "networkId": "triad_network" }
+              ],
+              "nextNode": "nervous_response",
+              "sunziPrinciple": "xushi",
+              "leaderParallel": "chiang_kai_shek"
+            },
+            {
+              "id": "gather_intel",
+              "text": { "zh": "'听说光哥的场子生意很好。'借机观察赌场", "en": "'I heard Brother Kwong's business is good.' Observe the casino" },
+              "consequences": [
+                { "type": "stat_change", "stat": "credibility", "value": 10 },
+                { "type": "flag", "flag": "casinoIntel", "value": true },
+                { "type": "cover", "active": true, "networkId": "triad_network" }
+              ],
+              "nextNode": "intel_response",
+              "sunziPrinciple": "shiji",
+              "leaderParallel": "churchill"
+            }
+          ]
+        },
+        "confident_response": {
+          "text": {
+            "zh": "阿光笑了，露出一颗金牙。'有意思。林SIR，这新人我喜欢。'他塞给你一个红包。'见面礼。以后跟着我，少不了你的。'你接过红包，感觉到里面的厚度。',
+            "en": "Ah Kwong smiles, revealing a gold tooth. 'Interesting. Sarge, I like this new guy.' He hands you a red envelope. 'A welcome gift. Stick with me, and you'll do well.' You take the envelope, feeling its thickness."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "收起红包", "en": "Pocket the envelope" }, "consequences": [{ "type": "stat_change", "stat": "money", "value": 2000 }, { "type": "next_mission", "missionId": "lams_network" }] }]
+        },
+        "nervous_response": {
+          "text": {
+            "zh": "阿光皱了皱眉。'新人，放轻松。在这里，紧张的人活不长。'他拍了拍你的脸，力道不轻。林警长赶紧打圆场：'他刚来，还不习惯。'阿光哼了一声走开了。",
+            "en": "Ah Kwong frowns. 'New guy, relax. Around here, nervous people don't live long.' He pats your face, not gently. Lam quickly intervenes: 'He's new, still getting used to things.' Ah Kwong grunts and walks away."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "深吸一口气", "en": "Take a deep breath" }, "consequences": [{ "type": "next_mission", "missionId": "lams_network" }] }]
+        },
+        "intel_response": {
+          "text": {
+            "zh": "阿光显然对你的恭维很受用。'年轻人有眼光。'他放松了警惕，向你介绍赌场的运作。你记下了每一个细节：后门的位置、保险柜的位置、每天的进账时间。这些信息，陈探员一定会很感兴趣。",
+            "en": "Ah Kwong is clearly flattered. 'Young people with vision.' He lets his guard down, explaining how the casino operates. You note every detail: back door location, safe location, daily intake times. Agent Chen will find this very interesting."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "继续收集信息", "en": "Continue gathering intel" }, "consequences": [{ "type": "next_mission", "missionId": "lams_network" }] }]
+        }
+      },
+      "startNode": "start"
+    },
+    {
+      "id": "lams_network",
+      "title": { "zh": "林警长的网络", "en": "Lam's Network" },
+      "phase": 1,
+      "arc": 1,
+      "district": "wan_chai",
+      "setup": {
+        "text": {
+          "zh": "你开始看清了林警长的关系网。从茶餐厅到赌场，从交通警到旺角的夜总会，每一条线都连着钱。今天，林警长说有个'大人物'要见你们。",
+          "en": "You're beginning to see the full scope of Lam's network. From teahouses to casinos, from traffic police to Mong Kok nightclubs, every thread connects to money. Today, Lam says a 'big shot' wants to meet you both."
+        },
+        "npcs": ["sgt_lam", "inspector_wong"],
+        "location": "wan_chai",
+        "time": "evening"
+      },
+      "nodes": {
+        "start": {
+          "text": {
+            "zh": "湾仔的一间私人会所。一个穿西装的中年男人坐在沙发上，喝着威士忌。'这位是黄督察，湾仔的招牌人物。'林警长介绍道。黄督察打量了你一番。'新人，我听说你很能干。想不想跟着我做大事？'",
+            "en": "A private club in Wan Chai. A middle-aged man in a suit sits on a sofa, drinking whiskey. 'This is Inspector Wong, Wan Chai's star.' Lam introduces. Wong sizes you up. 'New guy, I heard you're capable. Want to do something big with me?'"
+          },
+          "speaker": "Inspector Wong",
+          "speakerZh": "黄督察",
+          "choices": [
+            {
+              "id": "accept_wong",
+              "text": { "zh": "'多谢黄SIR赏识。'", "en": "'Thank you for the opportunity, Sir.'" },
+              "consequences": [
+                { "type": "stat_change", "stat": "credibility", "value": 20 },
+                { "type": "relationship", "npc": "inspector_wong", "value": 25 },
+                { "type": "stat_change", "stat": "money", "value": 10000 },
+                { "type": "cover", "active": true, "networkId": "wong_network" }
+              ],
+              "nextNode": "accept_wong_response",
+              "sunziPrinciple": "yongjian",
+              "leaderParallel": "deng_xiaoping"
+            },
+            {
+              "id": "ask_details",
+              "text": { "zh": "'请问是什么事？'", "en": "'May I ask what exactly?'" },
+              "consequences": [
+                { "type": "stat_change", "stat": "integrity", "value": 5 },
+                { "type": "relationship", "npc": "inspector_wong", "value": 5 },
+                { "type": "flag", "flag": "wongIntel", "value": true }
+              ],
+              "nextNode": "details_response",
+              "sunziPrinciple": "shiji",
+              "leaderParallel": "fdr"
+            },
+            {
+              "id": "refuse_wong",
+              "text": { "zh": "'我现在跟着林SIR就很好。'", "en": "'I'm happy following Sergeant Lam for now.'" },
+              "visibleIf": { "flag": "metICAC", "equals": true },
+              "consequences": [
+                { "type": "relationship", "npc": "inspector_wong", "value": -15 },
+                { "type": "relationship", "npc": "sgt_lam", "value": 10 },
+                { "type": "stat_change", "stat": "credibility", "value": -10 }
+              ],
+              "nextNode": "refuse_wong_response",
+              "sunziPrinciple": "junxing",
+              "leaderParallel": "lee_kuan_yew"
+            }
+          ]
+        },
+        "accept_wong_response": {
+          "text": {
+            "zh": "黄督察大笑，把一叠钞票拍在桌上。'好！我就喜欢爽快的人。从明天开始，你负责旺角那边的'联络'工作。'他意味深长地看了林警长一眼，'你找到个好苗子。'",
+            "en": "Inspector Wong laughs and slaps a stack of bills on the table. 'Good! I like decisive people. Starting tomorrow, you're in charge of the 'liaison' work in Mong Kok.' He gives Lam a meaningful look, 'You found a good seedling.'"
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "收起钱", "en": "Take the money" }, "consequences": [{ "type": "next_mission", "missionId": "walled_city_recon" }] }]
+        },
+        "details_response": {
+          "text": {
+            "zh": "黄督察和林警长交换了一个眼神。'谨慎是好事。'黄督察说，'简单说，旺角有几条街的保护费需要新人去收。你感兴趣吗？'他说得很轻松，像是在聊天气。",
+            "en": "Wong and Lam exchange a look. 'Caution is good,' Wong says. 'Simply put, there are protection fees on several streets in Mong Kok that need collecting. Interested?' He says it casually, as if discussing the weather."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "思考这个提议", "en": "Consider the offer" }, "consequences": [{ "type": "next_mission", "missionId": "traffic_sting" }] }]
+        },
+        "refuse_wong_response": {
+          "text": {
+            "zh": "黄督察的表情微微变化，但很快恢复笑容。'忠心耿耿，好品质。'他举起酒杯，'那我们就不强求了。不过，机会不等人。'他的目光在你脸上停留了一秒，让你感到一阵寒意。",
+            "en": "Wong's expression shifts slightly, but quickly returns to a smile. 'Loyalty, a fine quality.' He raises his glass, 'Then we won't insist. But opportunities don't wait.' His gaze lingers on your face for a second, sending a chill down your spine."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "离开会所", "en": "Leave the club" }, "consequences": [{ "type": "next_mission", "missionId": "traffic_sting" }] }]
+        }
+      },
+      "startNode": "start"
+    },
+    {
+      "id": "walled_city_recon",
+      "title": { "zh": "九龙城寨侦察", "en": "Walled City Recon" },
+      "phase": 1,
+      "arc": 1,
+      "district": "walled_city",
+      "setup": {
+        "text": {
+          "zh": "九龙城寨——香港最神秘的地方。三不管地带，警察不敢进。但陈探员说，那里是毒品和军火的中转站。'我们需要里面的情报。'他说，'但你必须小心——进去的人，不一定能出来。'",
+          "en": "Kowloon Walled City - Hong Kong's most mysterious place. A no-man's land where even police fear to enter. But Agent Chen says it's a transit hub for drugs and arms. 'We need intel from inside,' he says. 'But be careful - those who enter don't always come out.'"
+        },
+        "npcs": ["icac_officer_chen", "walled_city_resident"],
+        "location": "walled_city",
+        "time": "night"
+      },
+      "nodes": {
+        "start": {
+          "text": {
+            "zh": "城寨的入口是一道狭窄的小巷，两旁是摇摇欲坠的楼房。你深吸一口气，走了进去。里面完全是另一个世界——狭窄的走廊、密布的电线、四面八方传来的声音。一个老太太坐在门口，冷冷地看着你。",
+            "en": "The entrance to the Walled City is a narrow alley, flanked by crumbling buildings. You take a deep breath and enter. Inside is an entirely different world - narrow corridors, tangled wires, sounds coming from all directions. An old woman sits at a doorway, watching you coldly."
+          },
+          "speaker": "Narrator",
+          "speakerZh": "旁白",
+          "choices": [
+            {
+              "id": "ask_locals",
+              "text": { "zh": "向老太太打听消息", "en": "Ask the old woman for information" },
+              "consequences": [
+                { "type": "stat_change", "stat": "credibility", "value": 10 },
+                { "type": "flag", "flag": "wallCityIntel", "value": true }
+              ],
+              "nextNode": "ask_response",
+              "sunziPrinciple": "xingjun",
+              "leaderParallel": "mao"
+            },
+            {
+              "id": "observe_silently",
+              "text": { "zh": "默默观察，不引人注意", "en": "Observe silently, draw no attention" },
+              "consequences": [
+                { "type": "stat_change", "stat": "psychological", "value": -10 },
+                { "type": "flag", "flag": "wallCityLayout", "value": true }
+              ],
+              "nextNode": "observe_response",
+              "sunziPrinciple": "dixing",
+              "leaderParallel": "stalin"
+            },
+            {
+              "id": "find_triad",
+              "text": { "zh": "直接找三合会的人", "en": "Find triad members directly" },
+              "consequences": [
+                { "type": "stat_change", "stat": "risk", "value": 20 },
+                { "type": "cover", "active": true, "networkId": "triad_wallcity" }
+              ],
+              "nextNode": "triad_response",
+              "sunziPrinciple": "xushi",
+              "leaderParallel": "chiang_kai_shek"
+            }
+          ]
+        },
+        "ask_response": {
+          "text": {
+            "zh": "老太太盯着你看了很久。'警察？'她问。你点点头。她叹了口气。'五楼，右边。但别说是我说的。'她指了指上方。你抬头看去，只能看到密布的电线和黑暗。",
+            "en": "The old woman stares at you for a long time. 'Police?' she asks. You nod. She sighs. 'Fifth floor, right side. But don't say it was me.' She points upward. You look up, seeing only tangled wires and darkness."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "上楼调查", "en": "Go upstairs to investigate" }, "consequences": [{ "type": "next_mission", "missionId": "traffic_sting" }] }]
+        },
+        "observe_response": {
+          "text": {
+            "zh": "你在城寨里转了两个小时，画了一张粗略的地图。三个出口、两个楼梯、一个天井。陈探员会需要这个。但你注意到有人在跟踪你——一个穿黑衣服的年轻人，始终保持着十米的距离。",
+            "en": "You wander the Walled City for two hours, sketching a rough map. Three exits, two staircases, one courtyard. Agent Chen will need this. But you notice someone following you - a young man in black, always keeping ten meters distance."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "离开城寨", "en": "Leave the Walled City" }, "consequences": [{ "type": "next_mission", "missionId": "traffic_sting" }] }]
+        },
+        "triad_response": {
+          "text": {
+            "zh": "你找到了一个三合会的接头人。他上下打量你。'林SIR的人？'你点头。'跟我来。'他带你穿过迷宫般的走廊，来到一个地下室。里面堆满了箱子。你的心跳加速了——这是决定性的证据。",
+            "en": "You find a triad contact. He sizes you up. 'Lam's guy?' You nod. 'Follow me.' He leads you through maze-like corridors to a basement. Crates are stacked everywhere. Your heart races - this is decisive evidence."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "记住一切", "en": "Memorize everything" }, "consequences": [{ "type": "next_mission", "missionId": "traffic_sting" }] }]
+        }
+      },
+      "startNode": "start"
+    },
+    {
+      "id": "traffic_sting",
+      "title": { "zh": "交通组行动", "en": "Traffic Sting" },
+      "phase": 1,
+      "arc": 1,
+      "district": "mong_kok",
+      "setup": {
+        "text": {
+          "zh": "陈探员传来消息：明天中午，有一批'货物'从旺角运往尖沙咀。交通组有人负责开路。这是一个千载难逢的机会——可以抓到现行。但你也可能暴露。",
+          "en": "Agent Chen sends word: tomorrow at noon, a shipment will be transported from Mong Kok to Tsim Sha Tsui. Someone in Traffic is providing cover. It's a once-in-a-lifetime chance - to catch them red-handed. But you might also be exposed."
+        },
+        "npcs": ["icac_officer_chen", "traffic_sgt_lee"],
+        "location": "mong_kok",
+        "time": "noon"
+      },
+      "nodes": {
+        "start": {
+          "text": {
+            "zh": "你站在旺角的街头，看着对面的货车。交通组李警长正在指挥交通，但他的目光不时看向货车。货车启动了。你必须做出决定——是通知陈探员抓人，还是让货车通过？",
+            "en": "You stand on the streets of Mong Kok, watching the truck across the road. Traffic Sergeant Lee is directing traffic, but his eyes keep glancing at the truck. The engine starts. You must decide - notify Agent Chen to make the arrest, or let the truck pass?"
+          },
+          "speaker": "Narrator",
+          "speakerZh": "旁白",
+          "choices": [
+            {
+              "id": "call_chen",
+              "text": { "zh": "通知陈探员行动", "en": "Call Agent Chen to act" },
+              "consequences": [
+                { "type": "stat_change", "stat": "integrity", "value": 25 },
+                { "type": "stat_change", "stat": "publicTrust", "value": 15 },
+                { "type": "relationship", "npc": "icac_chen", "value": 20 },
+                { "type": "stat_change", "stat": "risk", "value": 30 },
+                { "type": "flag", "flag": "stingSuccess", "value": true }
+              ],
+              "nextNode": "call_response",
+              "sunziPrinciple": "huogong",
+              "leaderParallel": "churchill"
+            },
+            {
+              "id": "let_go",
+              "text": { "zh": "让货车通过，保护身份", "en": "Let the truck pass, protect your cover" },
+              "consequences": [
+                { "type": "stat_change", "stat": "credibility", "value": 15 },
+                { "type": "cover", "active": true, "networkId": "lam_network" },
+                { "type": "stat_change", "stat": "psychological", "value": -15 }
+              ],
+              "nextNode": "letgo_response",
+              "sunziPrinciple": "yongjian",
+              "leaderParallel": "deng_xiaoping"
+            },
+            {
+              "id": "follow_truck",
+              "text": { "zh": "跟踪货车，收集更多信息", "en": "Follow the truck, gather more intel" },
+              "consequences": [
+                { "type": "stat_change", "stat": "risk", "value": 20 },
+                { "type": "flag", "flag": "truckDestination", "value": true },
+                { "type": "stat_change", "stat": "psychological", "value": -10 }
+              ],
+              "nextNode": "follow_response",
+              "sunziPrinciple": "jiudi",
+              "leaderParallel": "stalin"
+            }
+          ]
+        },
+        "call_response": {
+          "text": {
+            "zh": "ICAC的人从四面八方涌出。货车被截停，司机被捕，货物被搜查。陈探员走过来，拍了拍你的肩膀。'干得好。但你知道吗？从今天起，你的处境会更危险。'你点点头。你知道自己已经没有退路了。",
+            "en": "ICAC agents pour in from all directions. The truck is stopped, driver arrested, cargo searched. Agent Chen walks over and pats your shoulder. 'Well done. But you know? From today, your situation will be more dangerous.' You nod. You know there's no turning back."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "准备下一步", "en": "Prepare for what's next" }, "consequences": [{ "type": "next_mission", "missionId": "whistleblower" }] }]
+        },
+        "letgo_response": {
+          "text": {
+            "zh": "货车开走了。李警长看了你一眼，微微点头。他知道你放行了。这份'人情'，日后他会记住的。但你心里清楚——每一次妥协，都在腐蚀你的灵魂。",
+            "en": "The truck drives off. Sergeant Lee glances at you and nods slightly. He knows you let it pass. This 'favor' - he'll remember it someday. But deep down you know - every compromise erodes your soul."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "继续潜伏", "en": "Continue the operation" }, "consequences": [{ "type": "next_mission", "missionId": "whistleblower" }] }]
+        },
+        "follow_response": {
+          "text": {
+            "zh": "你跟在货车后面，保持安全距离。货车开进了尖沙咀的一个货仓。你记下了地址。这是一个更大的网络的入口——你有预感，这背后的人比你想象的更危险。",
+            "en": "You follow the truck at a safe distance. It drives into a warehouse in Tsim Sha Tsui. You note the address. This is the entrance to a larger network - you have a feeling the people behind it are more dangerous than you imagined."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "汇报情报", "en": "Report the intel" }, "consequences": [{ "type": "next_mission", "missionId": "whistleblower" }] }]
+        }
+      },
+      "startNode": "start"
+    },
+    {
+      "id": "whistleblower",
+      "title": { "zh": "告密者", "en": "Whistleblower" },
+      "phase": 1,
+      "arc": 1,
+      "district": "central",
+      "setup": {
+        "text": {
+          "zh": "一个匿名电话打到了ICAC。有人要举报湾仔警署的高层。陈探员让你去接头——因为对方指明要见一个'内部的人'。你来到中环码头，等一艘不知会不会来的船。",
+          "en": "An anonymous call comes to ICAC. Someone wants to report high-ranking officers at Wan Chai Station. Agent Chen sends you to make contact - because the caller specifically asked to meet someone 'from inside.' You arrive at Central Pier, waiting for a boat that may never come."
+        },
+        "npcs": ["anonymous_informant", "icac_officer_chen"],
+        "location": "central_pier",
+        "time": "midnight"
+      },
+      "nodes": {
+        "start": {
+          "text": {
+            "zh": "午夜的中环码头，海风带着咸味。一个穿风衣的人从阴影中走出。你看不清他的脸——他刻意避开了灯光。'你是那个新人？'他的声音沙哑，'我有东西要给你。但你要答应我——无论发生什么，保护我的家人。'",
+            "en": "Midnight at Central Pier, the sea breeze carries salt. A figure in a trench coat emerges from the shadows. You can't see his face - he deliberately avoids the light. 'You're the new guy?' his voice is hoarse, 'I have something for you. But promise me - whatever happens, protect my family.'"
+          },
+          "speaker": "Anonymous",
+          "speakerZh": "匿名者",
+          "choices": [
+            {
+              "id": "promise_protection",
+              "text": { "zh": "'我答应你。把东西给我。'", "en": "'I promise. Give it to me.'" },
+              "consequences": [
+                { "type": "stat_change", "stat": "integrity", "value": 10 },
+                { "type": "flag", "flag": "hasInformant", "value": true },
+                { "type": "flag", "flag": "informantEvidence", "value": true }
+              ],
+              "nextNode": "promise_response",
+              "sunziPrinciple": "mougong",
+              "leaderParallel": "mandela"
+            },
+            {
+              "id": "ask_first",
+              "text": { "zh": "'你是谁？为什么要举报？'", "en": "'Who are you? Why are you reporting this?'" },
+              "consequences": [
+                { "type": "stat_change", "stat": "credibility", "value": -5 },
+                { "type": "stat_change", "stat": "risk", "value": 10 }
+              ],
+              "nextNode": "ask_response",
+              "sunziPrinciple": "shiji",
+              "leaderParallel": "fdr"
+            },
+            {
+              "id": "record_secretly",
+              "text": { "zh": "暗中记录他的声音和外貌", "en": "Secretly record his voice and appearance" },
+              "consequences": [
+                { "type": "flag", "flag": "informantRecorded", "value": true },
+                { "type": "stat_change", "stat": "risk", "value": 15 },
+                { "type": "stat_change", "stat": "psychological", "value": -10 }
+              ],
+              "nextNode": "record_response",
+              "sunziPrinciple": "yongjian",
+              "leaderParallel": "stalin"
+            }
+          ]
+        },
+        "promise_response": {
+          "text": {
+            "zh": "他从口袋里掏出一个胶卷。'这是湾仔所有高层的名单，和他们的账本。'他把胶卷塞进你的手里，'小心使用。这里面牵涉到的人，比你想象的更多。'然后他转身消失在夜色中。",
+            "en": "He pulls a film roll from his pocket. 'This is the list of all Wan Chai senior officers, and their ledgers.' He presses it into your hand. 'Use it carefully. The people involved are more than you imagine.' Then he turns and disappears into the night."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "把胶卷交给陈探员", "en": "Deliver the film to Agent Chen" }, "consequences": [{ "type": "next_mission", "missionId": "promotion_exam" }] }]
+        },
+        "ask_response": {
+          "text": {
+            "zh": "他沉默了很久。'这不重要。重要的是，我终于可以睡个好觉了。'他从口袋里掏出一个纸袋，塞给你。'证据。用我的命换来的。'说完，他转身就走。你喊他，但他没有回头。",
+            "en": "He's silent for a long time. 'That doesn't matter. What matters is, I can finally sleep well.' He pulls a paper bag from his pocket and hands it to you. 'Evidence. Bought with my life.' With that, he turns and leaves. You call out, but he doesn't turn back."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "打开纸袋", "en": "Open the bag" }, "consequences": [{ "type": "next_mission", "missionId": "promotion_exam" }] }]
+        },
+        "record_response": {
+          "text": {
+            "zh": "你按下了藏在手表里的录音机。他的声音被录了下来。你试图看清他的脸，但太暗了。'你在做什么？'他突然问。你的心跳停了一拍。'没什么。'你说。他盯着你看了几秒，然后把东西塞给你，迅速离开。",
+            "en": "You press the recorder hidden in your watch. His voice is captured. You try to see his face, but it's too dark. 'What are you doing?' he suddenly asks. Your heart skips a beat. 'Nothing,' you say. He stares at you for a few seconds, then hands you the item and quickly leaves."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "检查录音", "en": "Check the recording" }, "consequences": [{ "type": "next_mission", "missionId": "promotion_exam" }] }]
+        }
+      },
+      "startNode": "start"
+    },
+    {
+      "id": "promotion_exam",
+      "title": { "zh": "升级考试", "en": "Promotion Exam" },
+      "phase": 1,
+      "arc": 1,
+      "district": "arsenal_street",
+      "setup": {
+        "text": {
+          "zh": "ICAC给你安排了一个任务——通过升级考试，获得更高的职位，这样就能接触更核心的情报。但考试需要你暂时离开北角。这意味着你要和林警长告别，也可能暴露你一直在收集证据的事实。",
+          "en": "ICAC has arranged a mission for you - pass the promotion exam to gain a higher rank, which will give you access to more core intelligence. But the exam requires you to temporarily leave North Point. This means saying goodbye to Sergeant Lam, and possibly exposing that you've been gathering evidence."
+        },
+        "npcs": ["icac_officer_chen", "examiner", "sgt_lam"],
+        "location": "police_hq",
+        "time": "morning"
+      },
+      "nodes": {
+        "start": {
+          "text": {
+            "zh": " Arsenal Street 警察总部。考试在十楼。你走进电梯，陈探员就在里面。'最后一关。'他说，'通过后，你就是警长了。但记住——更高的位置意味着更大的危险。你准备好了吗？'",
+            "en": "Arsenal Street Police Headquarters. The exam is on the tenth floor. You enter the elevator, and Agent Chen is inside. 'The final hurdle,' he says, 'After passing, you'll be a sergeant. But remember - a higher position means greater danger. Are you ready?'"
+          },
+          "speaker": "Agent Chen",
+          "speakerZh": "陈探员",
+          "choices": [
+            {
+              "id": "take_exam",
+              "text": { "zh": "'我准备好了。'", "en": "'I'm ready.'" },
+              "consequences": [
+                { "type": "stat_change", "stat": "integrity", "value": 10 },
+                { "type": "rank_xp", "value": 200 },
+                { "type": "flag", "flag": "examPassed", "value": true }
+              ],
+              "nextNode": "exam_response",
+              "sunziPrinciple": "junzheng",
+              "leaderParallel": "lee_kuan_yew"
+            },
+            {
+              "id": "ask_about_lam",
+              "text": { "zh": "'林警长那边怎么办？'", "en": "'What about Sergeant Lam?'" },
+              "consequences": [
+                { "type": "relationship", "npc": "icac_chen", "value": 5 },
+                { "type": "flag", "flag": "examPassed", "value": true },
+                { "type": "rank_xp", "value": 200 }
+              ],
+              "nextNode": "ask_lam_response",
+              "sunziPrinciple": "mougong",
+              "leaderParallel": "fdr"
+            },
+            {
+              "id": "decline_exam",
+              "text": { "zh": "'我不想离开北角。'", "en": "'I don't want to leave North Point.'" },
+              "consequences": [
+                { "type": "relationship", "npc": "icac_chen", "value": -10 },
+                { "type": "stat_change", "stat": "integrity", "value": 5 },
+                { "type": "stat_change", "stat": "psychological", "value": 5 }
+              ],
+              "nextNode": "decline_response",
+              "sunziPrinciple": "jiubian",
+              "leaderParallel": "mandela"
+            }
+          ]
+        },
+        "exam_response": {
+          "text": {
+            "zh": "考试通过了。当你拿到新警徽的那一刻，你感到一阵复杂的情绪。这是胜利，也是更大冒险的开始。陈探员在走廊等你。'恭喜，警长。新的身份，新的任务。从明天起，你去旺角报到。'",
+            "en": "You passed the exam. The moment you receive your new badge, you feel complex emotions. This is victory, but also the beginning of a bigger adventure. Agent Chen waits in the corridor. 'Congratulations, Sergeant. New identity, new mission. From tomorrow, report to Mong Kok.'"
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "接受新任务", "en": "Accept new assignment" }, "consequences": [{ "type": "next_mission", "missionId": "district_transfer" }] }]
+        },
+        "ask_lam_response": {
+          "text": {
+            "zh": "陈探员的眼神变得严肃。'林警长的事，我们一直在处理。你不用担心他。'他顿了顿，'你现在的任务是通过考试，获得更高的权限。这样你才能接触到更大的鱼。'",
+            "en": "Agent Chen's expression becomes serious. 'We're handling Sergeant Lam's case. Don't worry about him.' He pauses, 'Your current mission is to pass the exam and gain higher clearance. Only then can you reach the bigger fish.'"
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "参加考试", "en": "Take the exam" }, "consequences": [{ "type": "next_mission", "missionId": "district_transfer" }] }]
+        },
+        "decline_response": {
+          "text": {
+            "zh": "陈探员叹了口气。'你的选择我理解。但记住，有时候留在原地比前进更危险。'他递给你一个新的联络方式。'如果改变主意，随时找我。'电梯门打开，他走了出去。你独自站在电梯里，不知道这个选择是否正确。",
+            "en": "Agent Chen sighs. 'I understand your choice. But remember, sometimes staying put is more dangerous than moving forward.' He gives you a new contact method. 'If you change your mind, find me anytime.' The elevator doors open and he exits. You stand alone, not knowing if this choice was right."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "做出选择", "en": "Make your choice" }, "consequences": [{ "type": "next_mission", "missionId": "district_transfer" }] }]
+        }
+      },
+      "startNode": "start"
+    },
+    {
+      "id": "district_transfer",
+      "title": { "zh": "调职", "en": "District Transfer" },
+      "phase": 1,
+      "arc": 1,
+      "district": "mong_kok",
+      "setup": {
+        "text": {
+          "zh": "旺角。香港最混乱也最充满活力的地方。霓虹灯、人群、各种各样的声音。你的新岗位在旺角警署，负责夜生活区的巡逻。这是一个全新的战场。",
+          "en": "Mong Kok. Hong Kong's most chaotic and vibrant place. Neon lights, crowds, all kinds of sounds. Your new post is at Mong Kok Station, patrolling the nightlife district. This is a whole new battlefield."
+        },
+        "npcs": ["new_sgt_wong", "bar_owner", "informant_little_wu"],
+        "location": "mong_kok",
+        "time": "evening"
+      },
+      "nodes": {
+        "start": {
+          "text": {
+            "zh": "第一晚巡逻。你的新搭档黄警长是个沉默寡言的人。'旺角和 North Point 不一样。'他说，'在这里，每个人都有自己的规则。你要学会看，而不是问。'他指了指街对面的一家夜总会。'那边，小心点。那是 14K 的地盘。'",
+            "en": "First night patrol. Your new partner Sergeant Wong is a man of few words. 'Mong Kok is different from North Point,' he says, 'Here, everyone has their own rules. You need to learn to watch, not ask.' He points to a nightclub across the street. 'Over there, be careful. That's 14K territory.'"
+          },
+          "speaker": "Sgt. Wong",
+          "speakerZh": "黄警长",
+          "choices": [
+            {
+              "id": "observe_clubs",
+              "text": { "zh": "暗中观察夜总会的运作", "en": "Secretly observe nightclub operations" },
+              "consequences": [
+                { "type": "stat_change", "stat": "credibility", "value": 10 },
+                { "type": "flag", "flag": "mongkokIntel", "value": true }
+              ],
+              "nextNode": "observe_response",
+              "sunziPrinciple": "xingjun",
+              "leaderParallel": "mao"
+            },
+            {
+              "id": "ask_wong",
+              "text": { "zh": "'黄SIR，你知道多少关于14K的事？'", "en": "'Sarge, what do you know about 14K?'" },
+              "consequences": [
+                { "type": "relationship", "npc": "sgt_wong", "value": -10 },
+                { "type": "stat_change", "stat": "risk", "value": 10 }
+              ],
+              "nextNode": "ask_wong_response",
+              "sunziPrinciple": "shiji",
+              "leaderParallel": "stalin"
+            },
+            {
+              "id": "find_informant",
+              "text": { "zh": "去找之前听说的线人小吴", "en": "Look for the informant Little Wu you heard about" },
+              "consequences": [
+                { "type": "stat_change", "stat": "risk", "value": 15 },
+                { "type": "relationship", "npc": "little_wu", "value": 20 },
+                { "type": "flag", "flag": "hasInformant", "value": true }
+              ],
+              "nextNode": "informant_response",
+              "sunziPrinciple": "yongjian",
+              "leaderParallel": "chiang_kai_shek"
+            }
+          ]
+        },
+        "observe_response": {
+          "text": {
+            "zh": "你在夜总会对面的巷子里观察了三个小时。看到了很多：来收保护费的人、运送'货物'的货车、还有一些穿着警服的人在门口晃悠。这个区域的腐败比你想的更严重。你需要更多的证据。",
+            "en": "You observe from an alley across from the nightclub for three hours. You see a lot: people collecting protection fees, trucks delivering 'goods,' and some uniformed officers lingering at the entrance. The corruption in this area is worse than you imagined. You need more evidence."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "继续记录", "en": "Continue documenting" }, "consequences": [{ "type": "next_mission", "missionId": "phase1_finale" }] }]
+        },
+        "ask_wong_response": {
+          "text": {
+            "zh": "黄警长的脸色变了。'新手，在这里，有些问题不该问。'他的声音很冷。'如果你想在这里活得久，记住一件事——看到的东西，装没看到。听到的东西，装没听到。'他转身继续巡逻，留下你一个人站在原地。",
+            "en": "Sergeant Wong's face changes. 'Rookie, around here, some questions shouldn't be asked.' His voice is cold. 'If you want to survive here long, remember one thing - what you see, pretend you didn't. What you hear, pretend you didn't.' He turns and continues patrolling, leaving you standing alone."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "思考他的话", "en": "Ponder his words" }, "consequences": [{ "type": "next_mission", "missionId": "phase1_finale" }] }]
+        },
+        "informant_response": {
+          "text": {
+            "zh": "小吴是个二十出头的年轻人，在一家便利店打工。他看到你进来，眼睛亮了一下。'你是新来的警长？'他压低声音，'我有东西要告诉你。关于这个区的'大老板'。但你得先帮我一个忙。'",
+            "en": "Little Wu is a young man in his early twenties, working at a convenience store. His eyes light up when he sees you enter. 'You're the new sergeant?' He lowers his voice, 'I have something to tell you. About the 'big boss' of this area. But you need to do me a favor first.'"
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "听他说下去", "en": "Hear him out" }, "consequences": [{ "type": "next_mission", "missionId": "phase1_finale" }] }]
+        }
+      },
+      "startNode": "start"
+    },
+    {
+      "id": "phase1_finale",
+      "title": { "zh": "第一阶段：风暴前夕", "en": "Phase 1: The Eve of Storm" },
+      "phase": 1,
+      "arc": 1,
+      "district": "mong_kok",
+      "setup": {
+        "text": {
+          "zh": "三个月的工作 culminates 在这一刻。ICAC决定收网——基于你提供的所有证据，一次大规模行动即将展开。你的名字会出现在证人的名单上。这意味着你的警察生涯结束了，但也意味着腐败网络将被撕开一道口子。这是最后的抉择。",
+          "en": "Three months of work culminates in this moment. ICAC has decided to close the net - based on all the evidence you've provided, a large-scale operation is about to begin. Your name will be on the witness list. This means your police career is over, but it also means the corruption network will be torn open. This is the final choice."
+        },
+        "npcs": ["icac_officer_chen", "sgt_lam", "inspector_wong"],
+        "location": "undisclosed",
+        "time": "dawn"
+      },
+      "nodes": {
+        "start": {
+          "text": {
+            "zh": "陈探员在一个安全屋里等你。桌上铺满了照片、文件、地图——都是你这几个月收集的证据。'明天黎明，行动开始。'他说，'但你还有最后一个选择。你可以选择不出面——作为幕后证人。这样你的身份可以保密，但证据的效力会降低。或者，你站上证人席，面对所有人。'",
+            "en": "Agent Chen waits for you in a safe house. The table is covered with photos, documents, maps - all the evidence you've collected over these months. 'Tomorrow at dawn, the operation begins,' he says, 'But you have one last choice. You can stay behind the scenes - as an anonymous witness. This keeps your identity secret, but weakens the evidence. Or, you take the witness stand and face everyone.'"
+          },
+          "speaker": "Agent Chen",
+          "speakerZh": "陈探员",
+          "choices": [
+            {
+              "id": "stand_witness",
+              "text": { "zh": "'我站上证人席。'", "en": "'I'll take the witness stand.'" },
+              "consequences": [
+                { "type": "stat_change", "stat": "integrity", "value": 30 },
+                { "type": "stat_change", "stat": "publicTrust", "value": 25 },
+                { "type": "stat_change", "stat": "psychological", "value": -20 },
+                { "type": "flag", "flag": "publicWitness", "value": true },
+                { "type": "flag", "flag": "phase1Complete", "value": true }
+              ],
+              "nextNode": "stand_response",
+              "sunziPrinciple": "huogong",
+              "leaderParallel": "mandela"
+            },
+            {
+              "id": "stay_hidden",
+              "text": { "zh": "'我选择保护身份。'", "en": "'I choose to protect my identity.'" },
+              "consequences": [
+                { "type": "stat_change", "stat": "psychological", "value": 5 },
+                { "type": "stat_change", "stat": "publicTrust", "value": -10 },
+                { "type": "stat_change", "stat": "credibility", "value": -15 },
+                { "type": "flag", "flag": "hiddenWitness", "value": true },
+                { "type": "flag", "flag": "phase1Complete", "value": true }
+              ],
+              "nextNode": "hidden_response",
+              "sunziPrinciple": "yongjian",
+              "leaderParallel": "deng_xiaoping"
+            },
+            {
+              "id": "warn_lam",
+              "text": { "zh": "'让我先和林警长谈谈。'", "en": "'Let me talk to Sergeant Lam first.'" },
+              "visibleIf": { "flag": "acceptedFirstBribe", "equals": true },
+              "consequences": [
+                { "type": "relationship", "npc": "sgt_lam", "value": -40 },
+                { "type": "stat_change", "stat": "psychological", "value": -25 },
+                { "type": "flag", "flag": "warnedLam", "value": true },
+                { "type": "flag", "flag": "phase1Complete", "value": true }
+              ],
+              "nextNode": "warn_response",
+              "sunziPrinciple": "mougong",
+              "leaderParallel": "churchill"
+            }
+          ]
+        },
+        "stand_response": {
+          "text": {
+            "zh": "陈探员沉默地看着你，然后伸出手。'这是我最希望听到的答案，也是最不想听到的。'他握紧你的手，'明天之后，你不再是警察。但你将成为香港法治历史的一部分。'你走出安全屋，黎明前的天空最暗。但你知道，太阳终将升起。",
+            "en": "Agent Chen looks at you in silence, then extends his hand. 'This is the answer I most hoped to hear, and least wanted to hear.' He grips your hand tightly, 'After tomorrow, you're no longer a police officer. But you will be part of Hong Kong's rule of law history.' You walk out of the safe house. The sky before dawn is darkest. But you know the sun will eventually rise."
+          },
+          "speaker": "Agent Chen",
+          "speakerZh": "陈探员",
+          "choices": [{ "id": "continue", "text": { "zh": "等待黎明", "en": "Wait for dawn" }, "consequences": [] }]
+        },
+        "hidden_response": {
+          "text": {
+            "zh": "陈探员点了点头。'我理解。不是每个人都有勇气站在聚光灯下。'他把文件收好，'你的证据仍然有用。但有一些罪犯可能会因为缺少直接证人而逃脱。这是代价。'你走出安全屋，不知道自己是否做出了正确的选择。",
+            "en": "Agent Chen nods. 'I understand. Not everyone has the courage to stand in the spotlight.' He collects the files, 'Your evidence is still useful. But some criminals may escape because of the lack of a direct witness. This is the price.' You leave the safe house, unsure if you made the right choice."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "走出安全屋", "en": "Leave the safe house" }, "consequences": [] }]
+        },
+        "warn_response": {
+          "text": {
+            "zh": "陈探员的表情变得很复杂。'你知道这意味着什么。'你知道。你给了林警长一个机会——逃跑，或者面对。这是背叛ICAC，也是背叛你的使命。但也是对一个曾把你当兄弟的人的最后一丝情义。黎明时分，警车包围了北角警署。林警长的座位空了。陈探员看向你，目光中有失望，也有理解。行动成功，但你知道，有些东西已经永远无法挽回了。",
+            "en": "Agent Chen's expression becomes complex. 'You know what this means.' You do. You gave Sergeant Lam a chance - to run, or to face justice. This is betrayal of ICAC, and betrayal of your mission. But also the last shred of loyalty to someone who once treated you like a brother. At dawn, police cars surround North Point Station. Lam's seat is empty. Chen looks at you with disappointment, but also understanding. The operation succeeded, but you know some things can never be recovered."
+          },
+          "choices": [{ "id": "continue", "text": { "zh": "面对结果", "en": "Face the consequences" }, "consequences": [] }]
+        }
+      },
+      "startNode": "start",
+      "debriefTrigger": true
+    }
+  ]
+}

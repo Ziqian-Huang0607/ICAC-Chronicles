@@ -1,0 +1,1 @@
+// Stub - integrated into scene
