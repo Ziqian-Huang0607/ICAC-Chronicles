@@ -1,4 +1,4 @@
-# ICAC 1 Chronicles | 廉政行动
+# ICAC Chronicles | 廉政行动
 
 > **"知彼知己，百战不殆。"** — 孙子
 
@@ -161,7 +161,7 @@ ICAC Chronicles/
 
 This game doesn't glorify corruption. It doesn't romanticize dictatorship. It shows you the mechanics — the levers, the switches, the hidden wiring — so you can recognize them in the real world. Sun Tzu said know your enemy as you know yourself. In 1974 Hong Kong, the enemy was sometimes wearing the same uniform. Sometimes it was the person offering you tea money. Sometimes it was the face in the mirror.
 
-The best defense against manipulation is understanding how manipulation works. That's what ICAC 1 Chronicles teaches — not through lectures, but through living it.
+The best defense against manipulation is understanding how manipulation works. That's what ICAC Chronicles teaches — not through lectures, but through living it.
 
 ---
 
@@ -169,7 +169,7 @@ The best defense against manipulation is understanding how manipulation works. T
 
 **MIT License**
 
-Copyright (c) 2026 Gordon Huang
+Copyright (c) 2025 Gordon Huang
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -193,4 +193,4 @@ SOFTWARE.
 
 > *"权力游戏不是可选项,是必修课。你可以不当赢家,但你至少要知道规则。否则,你连怎么死的都不知道。"*
 > 
-> — 陈教官, ICAC 1 Chronicles
+> — 陈教官, ICAC Chronicles
