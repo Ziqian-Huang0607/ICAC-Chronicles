@@ -417,6 +417,9 @@ var MissionScene = new Phaser.Class({
       case 'next_mission':
         if(s.progress.available.indexOf(c.missionId) === -1) s.progress.available.push(c.missionId);
         break;
+      case 'advance_phase':
+        if(c.phase > s.progress.phase) s.progress.phase = c.phase;
+        break;
       case 'rank_xp':
         s.player.xp += c.value;
         this.checkPromo();
