@@ -42,7 +42,7 @@ The common thread? **These skills are teachable.** And the best way to teach the
 
 As a solo developer and student, I built ICAC Chronicles to prove that one person with no budget, no team, and no external assets can create a game that teaches something real. Every line of code, every story node, every UI element was crafted by hand. The procedural textures, the typewriter effect, the branching narrative engine — all built from scratch.
 
-The game is set in 1974 because that was the year ICAC was founded. Hong Kong stood at a crossroads: the old corrupt police order versus a new system of accountability. It's the perfect crucible for learning how power actually works.
+The game spans **1974 to 1980** — from ICAC's founding through the 1977 police mutiny to the eve of Hong Kong's economic transformation. Six years that saw the old corrupt police order crumble, a new system of accountability fight for survival, and one police officer rise from rookie constable to the most powerful man in the territory.
 
 ---
 
@@ -52,54 +52,43 @@ The game is set in 1974 because that was the year ICAC was founded. Hong Kong st
 
 | Feature | Status |
 |---------|--------|
-| 4-Phase Epic Storyline (42,000+ characters) | Complete |
-| 12 Missions across 96 narrative nodes | Complete |
-| **16 Fragmented Random Events** (4 per Phase, Reigns-style popups) | **Complete** |
-| **Modal Event System** with consequence feedback | **Complete** |
+| **6-Phase Epic Storyline (1974–1980, 50,000+ characters)** | **Complete** |
+| **14 Missions across 116 narrative nodes** | **Complete** |
 | 14 Rank Progression (PC to Commissioner) | Complete |
 | 9 Hong Kong Districts with dynamic corruption | Complete |
-| 2 Epic Endings (正直之路 / 权力之路) | Complete |
+| 2 Epic Paths (正直之路 / 权力之路) with 3 endings each | Complete |
 | Typewriter Dialogue with Scrollable Textbox | Complete |
 | Choice-Consequence System with Stats | Complete |
 | Branching Narrative Engine | Complete |
 | Sun Tzu Principles & Leader Parallels | Complete |
+| **Game Over Scene** (killed/arrested/exiled/fired/betrayed) | **Complete** |
 | Procedural Canvas Textures (no external assets) | Complete |
 | Save/Load with localStorage | Complete |
 | Web Audio API Sound Effects | Complete |
 | Mobile Joystick Support | Complete |
 | Free Play Sandbox Mode | Complete |
 
-### The Fragmented Event System
+### Phase Structure
 
-Inspired by *Reigns* and *Papers, Please*, the game features **16 randomized power-play events** that pop up during map exploration. These are not full missions — they're compact, high-impact moral dilemmas that force immediate decisions with lasting consequences.
+**Phase 1 (1974)** — Rookie PC — `tutorial` (21 nodes), `first_day` (16), `teahouse_money` (8)
+> Ground level patrols. Sergeant Lam's tea money test. Your first moral fork: accept the system or fight it.
 
-Each event is a **modal card** (not a scene transition) that appears over the Hong Kong map, keeping the player grounded in the world while delivering narrative punches. After selecting a choice, a feedback paragraph explains the fallout — stat changes, relationship shifts, new flags, and narrative ripples.
+**Phase 2 (1974–75)** — Double Life — `double_life` (12), `icac_contact` (4), `promotion_exam` (11)
+> Deep cover as ICAC informant "Sparrow." Traffic unit by day, spy by night. Promotion to Inspector.
 
-**Phase 1 — Street Level (4 events):**
-- `街头风波` —黑帮小弟收小贩保护费，老板娘被你撞见
-- `红色跑车` —高级警司情妇违停，你开不开罚单
-- `润色报告` —老警察让你帮忙写假报告
-- `残缺档案` —阿May故意给你一份缺页档案测试你的反应
+**Phase 3 (1975)** — Inspector — `the_informant` (3), `the_mentor` (7)
+> Power struggles intensify. Sergeant Lam becomes your mentor. Old Ghost's legacy. The web tightens.
 
-**Phase 2 — Double Life (4 events):**
-- `深夜车队` —交通岗遇到林警长的走私车队
-- `陌生人` —ICAC通过路人塞纸条给你下达试探指令
-- `城寨暗影` —九龙城寨外围撞见毒品交易
-- `更衣室` —听到同僚说你跟ICAC有联系的闲言碎语
+**Phase 4 (1975)** — The Confrontation — `network_war` (4), `crisis_point` (3), `final_confrontation` (6)
+> Climax against Commissioner Hsueh Kok Tung. Two paths branch: integrity or power. Both lead to 1976.
 
-**Phase 3 — Office Politics (4 events):**
-- `年底分金` —分配奖金制造派系
-- `借刀杀人` —张Sir让你去给竞争对手下套
-- `地下赌场` —林警长让你去和胜和赌场"视察"
-- `部门摩擦` —O记和CID争夺线人
+**Phase 5 (1976)** — The Dragon Head — `triad_election` (10 nodes)
+> Wo Shing Wo's triad election. Two candidates: the young reformer Siu Kong wants real estate and legitimacy; the old guard Tiger Uncle wants tradition and brutality. You don't pick a side — you pick the outcome. Machiavelli's *The Prince* in action: manipulate both, control the board, or seize the throne yourself. Three radically different endings: bloody purge, dark Machiavellian deception, or police-state takeover.
 
-**Phase 4 — Crisis (4 events):**
-- `绑票` —线人被薛国栋的人绑架
-- `审计风暴` —处长派人查你的私人账单
-- `记者围堵` —南华早报记者突击采访
-- `最后通牒` —薛国栋逼你牺牲一个盟友
+**Phase 6 (1977)** — The Mutiny — `icac_mutiny` (11 nodes)
+> The October 1977 police mutiny — Hong Kong's darkest month. 5,000 off-duty officers storm ICAC headquarters. You must choose: side with the rioters and become the police's uncrowned king, protect ICAC and become the system's eternal outcast, or play both sides as the ultimate double agent. Three endings: the lone hero, the power-hungry minister, or the mastermind who fooled both camps.
 
-**Trigger system:** 35% chance on entering the map, 2-minute cooldown, weighted random selection, session-level dedup. Events filter by current Phase and can have additional conditions (rank, flags, completed missions).
+**Endgame** — `free_play` — Sandbox mode. Patrol Hong Kong, manage districts, build your legacy.
 
 ### Architecture
 - **Phaser 3** — game engine
@@ -107,7 +96,7 @@ Each event is a **modal card** (not a scene transition) that appears over the Ho
 - **Global `ICAC` namespace** — all modules communicate through a single global
 - **`<script>` tag loading** — works on `file://` protocol, no build step, no server required
 - **Procedural assets** — all textures generated at runtime via Canvas, zero external image files
-- **Random Event Engine** — weighted selection, condition-based filtering, modal overlay with consequence resolution
+- **Branching narrative engine** — node-based with stat/relationship/flag consequences
 
 ---
 
@@ -124,7 +113,7 @@ Each event is a **modal card** (not a scene transition) that appears over the Ho
 - **Analytics**: Track which choices players make most — which teaches us which power techniques resonate
 
 ### Phase 3 — Languages & Accessibility
-- **Multi-Language Support**: Full Traditional Chinese (Hong Kong), Simplified Chinese, and English localizations for all 42,000+ characters of dialogue
+- **Multi-Language Support**: Full Traditional Chinese (Hong Kong), Simplified Chinese, and English localizations for all 50,000+ characters of dialogue
 - **Accessibility Features**: Screen reader support, dyslexia-friendly fonts, colorblind modes, adjustable typewriter speed
 - **Mobile Optimization**: Touch-friendly dialogue scrolling, improved virtual joystick, native app wrapper
 
@@ -134,10 +123,10 @@ Each event is a **modal card** (not a scene transition) that appears over the Ho
 - **District Control System**: Reduce corruption, build community relationships, manage police resources
 
 ### Phase 5 — ICAC-2: New Storylines
-- **Post-1997 Expansion**: The handover era — navigating Hong Kong's transition, new power structures, new alliances
+- **1980s Expansion**: The decade of greed — triad wars, stock market manipulation, the Joint Declaration
+- **Post-1997 Era**: The handover — navigating Hong Kong's transition, new power structures, new alliances
 - **Prequel: The War Years**: 1940s Hong Kong under Japanese occupation — how the old police order was forged
-- **Alternate Timeline**: What if you chose the corruption path? A full storyline following the rise of a dictator
-- **Multi-Character Campaign**: Play as different characters — ICAC investigator, triad boss, journalist — each with their own perspective on power
+- **Multi-Character Campaign**: Play as different characters — ICAC investigator, triad boss, journalist
 
 ---
 
@@ -167,27 +156,26 @@ Each event is a **modal card** (not a scene transition) that appears over the Ho
 
 ```
 ICAC Chronicles/
-├── index.html                    # Entry point — <script> tag load order
-├── phaser.min.js                 # Phaser 3 game engine
+├── index.html              # Entry point — <script> tag load order
+├── phaser.min.js           # Phaser 3 game engine
 ├── src/
 │   ├── data/
-│   │   ├── missions.js           # 12 missions, 96 nodes, 42,862 chars
-│   │   ├── randomEvents.js       # 16 fragmented events, 4 per Phase
-│   │   ├── districts.js          # 9 HK districts with corruption data
-│   │   ├── ranks.js              # 14 police ranks with requirements
-│   │   ├── sunzi.js              # Sun Tzu 13 chapters reference
-│   │   └── leaders.js            # Historical leaders database
+│   │   ├── missions.js     # 14 missions, 116 nodes, 50,000+ chars (1974–1980)
+│   │   ├── districts.js    # 9 HK districts with corruption data
+│   │   ├── ranks.js        # 14 police ranks with requirements
+│   │   ├── sunzi.js        # Sun Tzu 13 chapters reference
+│   │   └── leaders.js      # Historical leaders database
 │   ├── scenes/
-│   │   ├── MenuScene.js          # Title screen with animated particles
-│   │   ├── GameScene.js          # Hong Kong map + HUD + event triggers
-│   │   ├── MissionScene.js       # Dialogue engine with scrollable textbox
-│   │   ├── RandomEventScene.js   # Modal event popup (Reigns-style)
-│   │   ├── PreloadScene.js       # Procedural texture generation
-│   │   └── BootScene.js          # State initialization
+│   │   ├── MenuScene.js    # Title screen with animated particles
+│   │   ├── GameScene.js    # Hong Kong map + HUD + district interactions
+│   │   ├── MissionScene.js # Dialogue engine with scrollable textbox
+│   │   ├── GameOverScene.js# Dramatic career endings
+│   │   ├── PreloadScene.js # Procedural texture generation
+│   │   └── BootScene.js    # State initialization
 │   ├── systems/
-│   │   └── UIToolkit.js          # HOI4-style UI components
-│   └── main.js                   # Game bootstrap + settings
-└── sw.js                         # Service worker for offline play
+│   │   └── UIToolkit.js    # HOI4-style UI components
+│   └── main.js             # Game bootstrap + settings
+└── sw.js                   # Service worker for offline play
 ```
 
 ---
