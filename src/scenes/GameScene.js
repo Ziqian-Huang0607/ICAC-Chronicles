@@ -32,6 +32,9 @@ var GameScene = new Phaser.Class({
 
     // Auto-save
     this.time.addEvent({ delay: 30000, callback: this.autoSave, callbackScope: this, loop: true });
+
+    // Random event trigger — 35% chance on entering map, 2-min cooldown
+    this.time.delayedCall(1500, this.checkRandomEvent, [], this);
   },
 
   drawMap: function() {
@@ -520,5 +523,72 @@ var GameScene = new Phaser.Class({
 
   autoSave: function() {
     try { localStorage.setItem('icac_autosave', JSON.stringify({ state: ICAC.state, time: Date.now() })); } catch(e){}
+  },
+
+  // ── Random Event System ──
+  checkRandomEvent: function() {
+    if(!ICAC.randomEvents || ICAC.randomEvents.length === 0) return;
+
+    // Cooldown: 2 minutes between events
+    var now = Date.now();
+    var last = ICAC.state._lastEventTime || 0;
+    if(now - last < 120000) return;
+
+    // 35% chance to trigger
+    if(Math.random() > 0.35) return;
+
+    // Filter eligible events by phase, weight, dedup
+    var phase = ICAC.state.progress.phase;
+    if(!ICAC._triggeredEvents) ICAC._triggeredEvents = {};
+
+    var pool = [];
+    for(var i = 0; i < ICAC.randomEvents.length; i++) {
+      var ev = ICAC.randomEvents[i];
+      // Phase match (allow events from current phase or one phase below)
+      if(ev.phase !== phase && ev.phase !== Math.max(1, phase - 1)) continue;
+      // Session dedup
+      if(ICAC._triggeredEvents[ev.id]) continue;
+      // Check conditions if any
+      if(ev.condition && !this.checkEventCondition(ev.condition)) continue;
+      pool.push(ev);
+    }
+
+    if(pool.length === 0) return;
+
+    // Weighted random selection
+    var totalWeight = 0;
+    for(var j = 0; j < pool.length; j++) totalWeight += (pool[j].weight || 1);
+    var rand = Math.random() * totalWeight;
+    var selected = pool[0];
+    for(var k = 0; k < pool.length; k++) {
+      rand -= (pool[k].weight || 1);
+      if(rand <= 0) { selected = pool[k]; break; }
+    }
+
+    this.triggerRandomEvent(selected);
+  },
+
+  checkEventCondition: function(cond) {
+    var s = ICAC.state;
+    if(cond.minPhase && s.progress.phase < cond.minPhase) return false;
+    if(cond.maxPhase && s.progress.phase > cond.maxPhase) return false;
+    if(cond.minRankIdx && s.player.rankIdx < cond.minRankIdx) return false;
+    if(cond.flags) {
+      for(var i = 0; i < cond.flags.length; i++) {
+        if(!s.flags[cond.flags[i]]) return false;
+      }
+    }
+    if(cond.completedMissions) {
+      for(var j = 0; j < cond.completedMissions.length; j++) {
+        if(s.progress.completed.indexOf(cond.completedMissions[j]) === -1) return false;
+      }
+    }
+    return true;
+  },
+
+  triggerRandomEvent: function(ev) {
+    // Pause this scene and launch RandomEventScene on top
+    this.scene.pause();
+    this.scene.launch('RandomEventScene', { event: ev, fromScene: 'GameScene' });
   }
 });

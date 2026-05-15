@@ -393,7 +393,7 @@ ICAC.missionsData = [
         speakerZh: "旁白",
         choices: [
           { textZh: "回到宿舍,立即在笔记本上写下今晚的所有细节", consequences: [{"type": "stat_change", "stat": "credibility", "value": 15}, {"type": "next_mission", "missionId": "double_life"}], },
-          { textZh: "躺在床上,看着天花板,思考自己到底是谁", consequences: [{"type": "stat_change", "stat": "psych", "value": -15}], }
+          { textZh: "躺在床上,看着天花板,思考自己到底是谁", consequences: [{"type": "stat_change", "stat": "psych", "value": -15}, {"type": "next_mission", "missionId": "double_life"}], }
         ]
       }
     }
@@ -812,7 +812,7 @@ ICAC.missionsData = [
     id: "final_confrontation",
     title: { zh: "终极对决", en: "Final Confrontation" },
     phase: 4,
-    district: "headquarters",
+    district: "central",
     setup: { textZh: "Operation Storm启动。薛国栋被困在他的堡垒里。最后的对决。", speakerZh: "黄Sir", locationZh: "警务处总部", time: "1975年2月15日" },
     startNode: "storm_dawn",
     nodes: {

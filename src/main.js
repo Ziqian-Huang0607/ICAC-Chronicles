@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   try { var s = JSON.parse(localStorage.getItem('icac_settings')); if(s) Object.assign(ICAC.settings, s); } catch(e){}
 
   // Define all scene constructors
-  var scenes = [BootScene, PreloadScene, MenuScene, GameScene, MissionScene, DebriefScene, SettingsScene];
+  var scenes = [BootScene, PreloadScene, MenuScene, GameScene, MissionScene, RandomEventScene, GameOverScene, DebriefScene, SettingsScene];
 
   ICAC.game = new Phaser.Game({
     type: Phaser.AUTO, width: 1280, height: 720, parent: 'game-container',

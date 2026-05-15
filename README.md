@@ -54,6 +54,8 @@ The game is set in 1974 because that was the year ICAC was founded. Hong Kong st
 |---------|--------|
 | 4-Phase Epic Storyline (42,000+ characters) | Complete |
 | 12 Missions across 96 narrative nodes | Complete |
+| **16 Fragmented Random Events** (4 per Phase, Reigns-style popups) | **Complete** |
+| **Modal Event System** with consequence feedback | **Complete** |
 | 14 Rank Progression (PC to Commissioner) | Complete |
 | 9 Hong Kong Districts with dynamic corruption | Complete |
 | 2 Epic Endings (正直之路 / 权力之路) | Complete |
@@ -67,12 +69,45 @@ The game is set in 1974 because that was the year ICAC was founded. Hong Kong st
 | Mobile Joystick Support | Complete |
 | Free Play Sandbox Mode | Complete |
 
+### The Fragmented Event System
+
+Inspired by *Reigns* and *Papers, Please*, the game features **16 randomized power-play events** that pop up during map exploration. These are not full missions — they're compact, high-impact moral dilemmas that force immediate decisions with lasting consequences.
+
+Each event is a **modal card** (not a scene transition) that appears over the Hong Kong map, keeping the player grounded in the world while delivering narrative punches. After selecting a choice, a feedback paragraph explains the fallout — stat changes, relationship shifts, new flags, and narrative ripples.
+
+**Phase 1 — Street Level (4 events):**
+- `街头风波` —黑帮小弟收小贩保护费，老板娘被你撞见
+- `红色跑车` —高级警司情妇违停，你开不开罚单
+- `润色报告` —老警察让你帮忙写假报告
+- `残缺档案` —阿May故意给你一份缺页档案测试你的反应
+
+**Phase 2 — Double Life (4 events):**
+- `深夜车队` —交通岗遇到林警长的走私车队
+- `陌生人` —ICAC通过路人塞纸条给你下达试探指令
+- `城寨暗影` —九龙城寨外围撞见毒品交易
+- `更衣室` —听到同僚说你跟ICAC有联系的闲言碎语
+
+**Phase 3 — Office Politics (4 events):**
+- `年底分金` —分配奖金制造派系
+- `借刀杀人` —张Sir让你去给竞争对手下套
+- `地下赌场` —林警长让你去和胜和赌场"视察"
+- `部门摩擦` —O记和CID争夺线人
+
+**Phase 4 — Crisis (4 events):**
+- `绑票` —线人被薛国栋的人绑架
+- `审计风暴` —处长派人查你的私人账单
+- `记者围堵` —南华早报记者突击采访
+- `最后通牒` —薛国栋逼你牺牲一个盟友
+
+**Trigger system:** 35% chance on entering the map, 2-minute cooldown, weighted random selection, session-level dedup. Events filter by current Phase and can have additional conditions (rank, flags, completed missions).
+
 ### Architecture
 - **Phaser 3** — game engine
 - **Vanilla JavaScript** — zero frameworks, zero dependencies beyond Phaser
 - **Global `ICAC` namespace** — all modules communicate through a single global
 - **`<script>` tag loading** — works on `file://` protocol, no build step, no server required
 - **Procedural assets** — all textures generated at runtime via Canvas, zero external image files
+- **Random Event Engine** — weighted selection, condition-based filtering, modal overlay with consequence resolution
 
 ---
 
@@ -132,25 +167,27 @@ The game is set in 1974 because that was the year ICAC was founded. Hong Kong st
 
 ```
 ICAC Chronicles/
-├── index.html              # Entry point — <script> tag load order
-├── phaser.min.js           # Phaser 3 game engine
+├── index.html                    # Entry point — <script> tag load order
+├── phaser.min.js                 # Phaser 3 game engine
 ├── src/
 │   ├── data/
-│   │   ├── missions.js     # 12 missions, 96 nodes, 42,862 chars
-│   │   ├── districts.js    # 9 HK districts with corruption data
-│   │   ├── ranks.js        # 14 police ranks with requirements
-│   │   ├── sunzi.js        # Sun Tzu 13 chapters reference
-│   │   └── leaders.js      # Historical leaders database
+│   │   ├── missions.js           # 12 missions, 96 nodes, 42,862 chars
+│   │   ├── randomEvents.js       # 16 fragmented events, 4 per Phase
+│   │   ├── districts.js          # 9 HK districts with corruption data
+│   │   ├── ranks.js              # 14 police ranks with requirements
+│   │   ├── sunzi.js              # Sun Tzu 13 chapters reference
+│   │   └── leaders.js            # Historical leaders database
 │   ├── scenes/
-│   │   ├── MenuScene.js    # Title screen with animated particles
-│   │   ├── GameScene.js    # Hong Kong map + HUD + district interactions
-│   │   ├── MissionScene.js # Dialogue engine with scrollable textbox
-│   │   ├── PreloadScene.js # Procedural texture generation
-│   │   └── BootScene.js    # State initialization
+│   │   ├── MenuScene.js          # Title screen with animated particles
+│   │   ├── GameScene.js          # Hong Kong map + HUD + event triggers
+│   │   ├── MissionScene.js       # Dialogue engine with scrollable textbox
+│   │   ├── RandomEventScene.js   # Modal event popup (Reigns-style)
+│   │   ├── PreloadScene.js       # Procedural texture generation
+│   │   └── BootScene.js          # State initialization
 │   ├── systems/
-│   │   └── UIToolkit.js    # HOI4-style UI components
-│   └── main.js             # Game bootstrap + settings
-└── sw.js                   # Service worker for offline play
+│   │   └── UIToolkit.js          # HOI4-style UI components
+│   └── main.js                   # Game bootstrap + settings
+└── sw.js                         # Service worker for offline play
 ```
 
 ---

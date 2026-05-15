@@ -420,6 +420,11 @@ var MissionScene = new Phaser.Class({
       case 'advance_phase':
         if(c.phase > s.progress.phase) s.progress.phase = c.phase;
         break;
+      case 'game_over':
+        this.time.delayedCall(60, function() {
+          self.scene.start('GameOverScene', { reason: c.reason || 'default', fromScene: self.scene.key });
+        });
+        break;
       case 'rank_xp':
         s.player.xp += c.value;
         this.checkPromo();
