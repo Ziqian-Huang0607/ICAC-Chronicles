@@ -21,7 +21,7 @@ var MissionScene = new Phaser.Class({
     this.cameras.main.fadeIn(300);
 
     this.mission = ICAC.missionById(this.missionId);
-    if(!this.mission) { this.scene.start('GameScene'); return; }
+    if(!this.mission) { console.error('[MissionScene] Mission not found:', this.missionId); this.scene.start('GameScene'); return; }
 
     // Background layers
     this.add.tileSprite(W/2, H/2, W, H, 'bg_grid');
@@ -113,7 +113,17 @@ var MissionScene = new Phaser.Class({
 
     // Click to advance/skip (only if clicking inside dialogue area, NOT on scrollbar)
     var clickArea = this.add.rectangle(boxX + boxW/2, boxY + boxH/2, boxW, boxH, 0, 0).setInteractive({ useHandCursor: true }).setDepth(13);
-    clickArea.on('pointerdown', function() { self.onClick(); });
+    clickArea.on('pointerdown', function(p) {
+      if (self.typing) {
+        // While typing: skip to end
+        self.onClick();
+      } else if (self.maxScroll > 0) {
+        // Not typing + scrollable: start drag
+        self.isDragging = true;
+        self.dragStartY = p.y;
+        self.dragStartOffset = self.scrollOffset;
+      }
+    });
 
     // Scroll events
     this.scrollUpBtn.on('pointerdown', function() { self.scrollBy(-40); });
@@ -122,21 +132,13 @@ var MissionScene = new Phaser.Class({
     // Mouse wheel
     this.input.on('wheel', function(p, gameObjects, deltaX, deltaY, deltaZ) {
       if (!self.dialogueText) return;
-      // Only scroll if mouse is over dialogue area
       var mx = p.x, my = p.y;
       if (mx >= boxX && mx <= boxX + boxW + 30 && my >= boxY && my <= boxY + boxH) {
         self.scrollBy(deltaY * 0.5);
       }
     });
 
-    // Drag on dialogue text to scroll (when not typing)
-    clickArea.on('pointerdown', function(p) {
-      if (!self.typing && self.maxScroll > 0) {
-        self.isDragging = true;
-        self.dragStartY = p.y;
-        self.dragStartOffset = self.scrollOffset;
-      }
-    });
+    // Drag to scroll
     this.input.on('pointermove', function(p) {
       if (self.isDragging && self.maxScroll > 0) {
         var delta = self.dragStartY - p.y;
@@ -200,9 +202,11 @@ var MissionScene = new Phaser.Class({
   },
 
   showNode: function(id) {
+    
     var node = this.mission.nodes[id];
-    if(!node) { this.endMission(); return; }
+    if(!node) { console.error('[MissionScene] Node not found:', id); this.endMission(); return; }
     this.nodeId = id;
+    if(this.debugText) this.debugText.setText('NODE: ' + id);
     var isZh = ICAC.settings.lang === 'zh';
 
     // Speaker
@@ -219,6 +223,7 @@ var MissionScene = new Phaser.Class({
   },
 
   startTypewriter: function(text) {
+    
     var self = this;
     this.currentText = text;
     this.displayed = '';
@@ -237,28 +242,34 @@ var MissionScene = new Phaser.Class({
 
     this.typeEvent = this.time.addEvent({
       delay: 10, loop: true, callback: function() {
-        if(self.charIdx < self.currentText.length) {
-          self.displayed += self.currentText[self.charIdx];
-          self.dialogueText.setText(self.displayed);
-          self.charIdx++;
-          if(self.charIdx % 3 === 0) ICAC.AudioSystem.play('typewriter');
-          // Auto-scroll: keep the bottom of the text visible
-          self.updateMaxScroll();
-          if (self.maxScroll > 0) {
-            self.scrollOffset = self.maxScroll;
-            self.dialogueText.setY(self.dialogueBox.y + 8 - self.scrollOffset);
+        try {
+          if(self.charIdx < self.currentText.length) {
+            self.displayed += self.currentText[self.charIdx];
+            self.dialogueText.setText(self.displayed);
+            self.charIdx++;
+            if(self.charIdx % 3 === 0) ICAC.AudioSystem.play('typewriter');
+            self.updateMaxScroll();
+            if (self.maxScroll > 0) {
+              self.scrollOffset = self.maxScroll;
+              self.dialogueText.setY(self.dialogueBox.y + 8 - self.scrollOffset);
+              self.updateScrollThumb();
+            }
+          } else {
+            self.typing = false;
+            self.updateMaxScroll();
+            if (self.maxScroll <= 0) {
+              self.arrow.setAlpha(1);
+            }
             self.updateScrollThumb();
+            self.updateScrollIndicators();
+            if(self.typeEvent) { self.typeEvent.destroy(); self.typeEvent = null; }
+            self.showChoices();
           }
-        } else {
+        } catch(e) {
+          console.error('[MissionScene] Typewriter callback ERROR:', e.message, e.stack);
           self.typing = false;
-          self.updateMaxScroll();
-          if (self.maxScroll <= 0) {
-            self.arrow.setAlpha(1);
-          }
-          self.updateScrollThumb();
-          self.updateScrollIndicators();
           if(self.typeEvent) { self.typeEvent.destroy(); self.typeEvent = null; }
-          self.showChoices();
+          try { self.showChoices(); } catch(e2) {}
         }
       }
     });
@@ -297,7 +308,8 @@ var MissionScene = new Phaser.Class({
 
   showChoices: function() {
     var node = this.mission.nodes[this.nodeId];
-    if(!node || !node.choices || node.choices.length === 0) return;
+    if(!node || !node.choices || node.choices.length === 0) {  return; }
+    
     var self = this, W = this.W, H = this.H, UI = ICAC.UI, C = UI.colors, isZh = ICAC.settings.lang === 'zh';
     this.clearChoices();
 
@@ -314,18 +326,23 @@ var MissionScene = new Phaser.Class({
       (function(choice, idx) {
         var cy = startY + idx * gap;
 
-        // Choice card panel
-        var card = UI.drawPanel(self, W/2, cy, bw, bh, { depth: 20, cornerSize: 8 });
-        self.choiceElements.push(card.shadow, card.body, card.outer, card.inner, card.corners);
+        // ---- Simplest proven pattern: interactive rectangle + overlaid text ----
+        // Card body is the interactive element — directly on scene, no container
+        var body = self.add.rectangle(W/2, cy, bw, bh, C.bgPanel, 0.97);
+        body.setStrokeStyle(1, C.borderInner, 0.5);
+        body.setInteractive({ useHandCursor: true });
+        body.setDepth(20 + idx);
+        self.choiceElements.push(body);
 
         // Number badge
-        var numBg = self.add.rectangle(W/2 - bw/2 + 24, cy, 28, 28, C.bgHeader, 0.9).setDepth(22);
+        var numBg = self.add.rectangle(W/2 - bw/2 + 24, cy, 28, 28, C.bgHeader, 0.9);
         numBg.setStrokeStyle(1, C.gold, 0.3);
+        numBg.setDepth(21 + idx);
         self.choiceElements.push(numBg);
 
         var num = self.add.text(W/2 - bw/2 + 24, cy, String(idx+1), {
-          fontSize: '14px', color: C.gold, fontFamily: 'monospace', fontStyle: 'bold'
-        }).setOrigin(0.5).setDepth(23);
+          fontSize: '14px', color: '#c9a84c', fontFamily: 'monospace', fontStyle: 'bold'
+        }).setOrigin(0.5).setDepth(22 + idx);
         self.choiceElements.push(num);
 
         // Choice text
@@ -335,29 +352,27 @@ var MissionScene = new Phaser.Class({
 
         var txt = self.add.text(W/2 - bw/2 + 50, cy, ct, {
           fontSize: '14px', color: '#e8e4dc', fontFamily: '"PingFang SC",sans-serif', wordWrap: { width: bw-80 }
-        }).setDepth(22);
+        }).setOrigin(0, 0.5).setDepth(22 + idx);
         self.choiceElements.push(txt);
 
-        // Hit area for interaction
-        var hit = self.add.rectangle(W/2, cy, bw, bh, 0, 0).setInteractive({ useHandCursor: true }).setDepth(24);
-        hit.on('pointerover', function() {
-          card.body.setFillStyle(0x1a1816, 0.98);
-          card.body.setStrokeStyle(1, C.gold, 0.5);
+        // Visual feedback
+        body.on('pointerover', function() {
+          body.setFillStyle(0x1a1816, 0.98);
           numBg.setFillStyle(0x2a2520, 0.95);
           txt.setColor('#fff');
+          body.setStrokeStyle(1, C.gold, 0.5);
         });
-        hit.on('pointerout', function() {
-          card.body.setFillStyle(C.bgPanel, 0.97);
-          card.body.setStrokeStyle(1, C.borderInner, 0.5);
+        body.on('pointerout', function() {
+          body.setFillStyle(C.bgPanel, 0.97);
           numBg.setFillStyle(C.bgHeader, 0.9);
-          txt.setColor(C.text);
+          txt.setColor('#e8e4dc');
+          body.setStrokeStyle(1, C.borderInner, 0.5);
         });
-        hit.on('pointerdown', function() {
-          ICAC.AudioSystem.play('click');
-          self.tweens.add({ targets: card.body, scaleX: 0.98, scaleY: 0.98, duration: 60, yoyo: true });
+        body.on('pointerdown', function() {
+          
+          try { ICAC.AudioSystem.play('click'); } catch(e) {}
           self.choose(choice);
         });
-        self.choiceElements.push(hit);
       })(choices[i], i);
     }
   },
@@ -371,9 +386,12 @@ var MissionScene = new Phaser.Class({
 
   choose: function(choice) {
     var isZh = ICAC.settings.lang === 'zh';
+    var choiceText = choice.textZh || choice.text || 'unknown';
+    
 
     // Apply consequences
     if(choice.consequences) {
+      
       for(var i=0; i<choice.consequences.length; i++) this.applyConsequence(choice.consequences[i]);
     }
 
@@ -389,19 +407,35 @@ var MissionScene = new Phaser.Class({
     this.refreshStatsBar();
 
     // Advance
-    if(choice.nextNode && this.mission.nodes[choice.nextNode]) {
+    var nodeExists = choice.nextNode && this.mission.nodes[choice.nextNode];
+    
+    if(nodeExists) {
+      
       this.clearChoices();
-      this.showNode(choice.nextNode);
+      try {
+        this.showNode(choice.nextNode);
+      } catch(e) {
+        console.error('[MissionScene] showNode ERROR:', e.message, e.stack);
+        this.add.text(this.W/2, this.H/2, 'ERROR: ' + e.message, { fontSize: '16px', color: '#ff0000' }).setOrigin(0.5).setDepth(200);
+      }
     } else {
+      
       this.completeMission();
     }
   },
 
   applyConsequence: function(c) {
+    
     var s = ICAC.state;
     switch(c.type) {
       case 'stat_change':
-        if(s.stats[c.stat] !== undefined) s.stats[c.stat] = Math.max(0, Math.min(100, s.stats[c.stat] + c.value));
+        
+        if(c.stat === 'money') {
+          // Money is a separate field, not in stats
+          s.money = (s.money || 0) + c.value;
+        } else if(s.stats[c.stat] !== undefined) {
+          s.stats[c.stat] = Math.max(0, Math.min(100, s.stats[c.stat] + c.value));
+        }
         break;
       case 'relationship':
         if(!s.relations[c.npc]) s.relations[c.npc] = 0;
@@ -421,8 +455,9 @@ var MissionScene = new Phaser.Class({
         if(c.phase > s.progress.phase) s.progress.phase = c.phase;
         break;
       case 'game_over':
+        var gameScene = this;
         this.time.delayedCall(60, function() {
-          self.scene.start('GameOverScene', { reason: c.reason || 'default', fromScene: self.scene.key });
+          gameScene.scene.start('GameOverScene', { reason: c.reason || 'default', fromScene: 'MissionScene' });
         });
         break;
       case 'rank_xp':
@@ -450,6 +485,7 @@ var MissionScene = new Phaser.Class({
   },
 
   completeMission: function() {
+    
     var p = ICAC.state.progress;
     var idx = p.available.indexOf(this.missionId);
     if(idx !== -1) p.available.splice(idx, 1);
@@ -460,6 +496,7 @@ var MissionScene = new Phaser.Class({
 
     var missionScene = this;
     missionScene.time.delayedCall(60, function() {
+      
       if(p.debriefPending) { missionScene.scene.start('DebriefScene'); }
       else { missionScene.scene.start('GameScene'); }
     });
@@ -497,8 +534,18 @@ var MissionScene = new Phaser.Class({
   refreshStatsBar: function() {
     var s = ICAC.state;
     for(var k in this.statTexts) {
-      if(this.statTexts[k]) this.statTexts[k].setText(String(s.stats[k] || 0));
+      if(!this.statTexts[k]) continue;
+      if(k === 'money') {
+        this.statTexts[k].setText(String(s.money || 0));
+      } else {
+        this.statTexts[k].setText(String(s.stats[k] || 0));
+      }
     }
+    // Also refresh GameScene HUD if it's running
+    try {
+      var gameScene = this.scene.get('GameScene');
+      if(gameScene && gameScene.refreshStatsBar) gameScene.refreshStatsBar();
+    } catch(e) {}
   },
 
   shutdown: function() {

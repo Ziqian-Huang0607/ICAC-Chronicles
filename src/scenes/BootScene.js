@@ -8,10 +8,9 @@ ICAC.initState = function() {
       xp: 0,
       coverNetwork: null
     },
-    stats: {
-      integrity: 60, trust: 50, money: 200,
-      credibility: 50, psych: 70
-    },
+    money: 100, // Real money system — starts with $100
+    lifestyle: 'modest', // Housing: modest/comfortable/luxury/extravagant
+    day: { current: 1, ap: 3, actionsTaken: [], weekDay: 1 },
     cover: { active: false, credibility: 0, networkId: null },
     progress: {
       phase: 1,
@@ -21,6 +20,26 @@ ICAC.initState = function() {
     },
     flags: {},
     relations: {},
+    // New gameplay systems
+    schemes: [],
+    completedSchemes: [],
+    intel: {},
+    opportunities: [],
+    caseFiles: {},
+    trainingProgress: 0,
+    ownedAssets: [],
+    assets: {
+      north_point: { controlLevel: 10, businesses: [] }
+    },
+    bribes: [],
+    patrolLog: {},
+    networkLog: {},
+    completedSubMissions: [],
+    activeSubMissions: [],
+    exposure: 0,
+    activeShortcuts: [],
+    completedShortcuts: [],
+    stats: { integrity: 60, trust: 50, credibility: 50, psych: 70, actionsTotal: 0 },
     network: {
       icac: [
         { name: '黄Sir', nameEn: 'Sir Wong', role: 'ICAC导师', roleEn: 'ICAC Mentor', rel: 45 },

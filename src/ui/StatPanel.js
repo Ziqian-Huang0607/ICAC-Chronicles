@@ -41,7 +41,7 @@ export default class StatPanel {
       { key: 'integrity', label: t('正直', 'Integrity'), value: stats.integrity || 0, color: '#4a4' },
       { key: 'publicTrust', label: t('公众信任', 'Public Trust'), value: stats.publicTrust || 0, color: '#48a' },
       { key: 'credibility', label: t('可信度', 'Credibility'), value: stats.credibility || 0, color: '#8a8' },
-      { key: 'money', label: t('金钱', 'Money'), value: stats.money || 0, color: '#ca4' },
+      { key: 'money', label: t('金钱', 'Money'), value: (window.gameState?.money || 0), color: '#ca4' },
       { key: 'risk', label: t('风险', 'Risk'), value: stats.risk || 0, color: '#c44' },
       { key: 'psychological', label: t('心理状态', 'Mental State'), value: stats.psychological || 100, color: '#a4a' }
     ];

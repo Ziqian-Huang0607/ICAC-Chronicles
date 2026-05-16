@@ -409,7 +409,7 @@ var GameScene = new Phaser.Class({
     }
 
     // Money
-    this.add.text(720, 8, '$' + s.stats.money, {
+    this.moneyText = this.add.text(720, 8, '$' + (s.money || 0), {
       fontSize: '16px', color: '#c9a84c', fontFamily: 'monospace'
     }).setDepth(61);
 
@@ -456,7 +456,7 @@ var GameScene = new Phaser.Class({
     // Network button
     var netBtn = UI.createButton(this, 180, H - 20, ICAC.lang('网络','NET'), {
       width: 90, height: 28, fontSize: '11px', depth: 61,
-      cb: function() { scene.showNetworkPanel(); }
+      cb: function() { gameScene.showNetworkPanel(); }
     });
   },
 
@@ -469,6 +469,23 @@ var GameScene = new Phaser.Class({
   updateMissionCount: function() {
     if(this.missionText) {
       this.missionText.setText(ICAC.lang('任务: ','M: ') + ICAC.state.progress.available.length);
+    }
+  },
+
+  refreshStatsBar: function() {
+    var s = ICAC.state;
+    if(this.moneyText) {
+      this.moneyText.setText('$' + (s.money || 0));
+    }
+    // Refresh stat bars if they exist and have refresh method
+    if(this.statBars) {
+      var statMap = ['integrity','trust','credibility','psych'];
+      for(var i=0; i<statMap.length; i++) {
+        var key = statMap[i];
+        if(this.statBars[key] && typeof this.statBars[key].refresh === 'function' && s.stats[key] !== undefined) {
+          this.statBars[key].refresh(s.stats[key], 100);
+        }
+      }
     }
   },
 

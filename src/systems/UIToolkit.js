@@ -219,7 +219,26 @@ ICAC.UI = {
     }
     var val = scene.add.text(w / 2 - 6, -7, String(Math.round(value)), { fontSize: '12px', color: color || '#58a868', fontFamily: 'monospace', fontStyle: 'bold' }).setOrigin(1, 0).setDepth(1);
     container.add(val);
-    return { container: container, bg: bg, bar: pct > 0 ? bar : null, valText: val, lblText: lbl };
+
+    var barColor = typeof color === 'string' ? parseInt(color.replace('#', '0x')) : (color || C.success);
+    var barW = w - 16;
+    var result = {
+      container: container, bg: bg, bar: pct > 0 ? bar : null,
+      valText: val, lblText: lbl, _barColor: barColor, _barW: barW, _scene: scene
+    };
+
+    // Add refresh method so GameScene can update stat bars live
+    result.refresh = function(newValue, maxVal) {
+      var pct2 = Math.max(0, Math.min(1, newValue / (maxVal || 100)));
+      this.valText.setText(String(Math.round(newValue)));
+      if(this.bar) { this.bar.destroy(); this.bar = null; }
+      if(pct2 > 0) {
+        this.bar = this._scene.add.rectangle(-this._barW / 2 + this._barW * pct2 / 2, 6, this._barW * pct2, 7, this._barColor, 0.88).setDepth(2);
+        this.container.add(this.bar);
+      }
+    };
+
+    return result;
   },
 
   createTooltip: function(scene, x, y, title, lines, opts) {

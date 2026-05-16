@@ -1,192 +1,232 @@
 # ICAC Chronicles | 廉政行动
 
-> **"知彼知己，百战不殆。"** — 孙子
+> **"权力游戏不是可选项，是必修课。你可以不当赢家，但你至少要知道规则。否则，你连怎么死的都不知道。"** —— 陈教官
 
-A browser-based narrative strategy RPG set in 1974 Hong Kong, where you rise from a rookie police constable through the ranks of the Royal Hong Kong Police Force — navigating corruption, power, and moral choices. Inspired by Sun Tzu's *The Art of War*, the political maneuvering of history's most consequential leaders, and the gritty aesthetic of classic Hong Kong police cinema.
+A browser-based **narrative strategy RPG** set in 1974–1980 Hong Kong. Play as a rookie police constable with $100 and a badge. Six years later: Commissioner of Police, or the most powerful corrupt officer in the territory. The difference is what **you do, every single day**.
 
----
-
-## The Purpose
-
-ICAC Chronicles is not just a game — it's a masterclass in **做局术** (the art of strategic setup), **官术** (the craft of officialdom), **权术** (the mechanics of power), and **deception** — taught entirely through immersive narrative gameplay.
-
-Every dialogue, every choice, every consequence is designed to teach real-world power dynamics:
-- How Hitler redefined enemies to unify fractured political landscapes
-- How Stalin eliminated rivals through gradual, imperceptible maneuvers
-- How Mao applied contradiction theory to analyze power structures
-- How Churchill used partial truth to rally a nation
-- How Lee Kuan Yew built a city-state from nothing through institutional control
-- How Caesar, Napoleon, and Thatcher wielded authority through different paths
-
-These aren't trivia facts appended after gameplay — they're **woven into the fabric of the story**. When 陈教官 hands you a worn copy of *The Art of War* on your first day at the police training school, he's not quoting from a textbook. He's teaching you how to survive a system where corruption runs from the street-level sergeant to the Commissioner of Police himself.
-
-Sun Tzu's thirteen chapters appear throughout the game as living principles:
-- **始计篇** (Estimates) — assess the landscape before acting
-- **作战篇** (Waging War) — understand the cost of engagement
-- **谋攻篇** (Attack by Stratagem) — win without fighting
-- **用间篇** (Employing Spies) — build your intelligence network
-
-Each mission is a lesson. Each choice is a test. The story IS the classroom.
+This is a **power simulator**, not a visual novel. You don't read about setting traps — you build them, step by step, with real consequences.
 
 ---
 
-## The Motivation
+## What This Game Teaches
 
-This project grew from a simple obsession: **the gap between what history books teach and what actually works.**
+**做局术** (the art of strategic setup) — not through lectures, through gameplay:
 
-Growing up watching old Hong Kong police movies — *Infernal Affairs* (无间道), *PTU*, *Election* (黑社会), *Long Arm of the Law*, and the classic ICAC television series — I was fascinated by the moral complexity. Cops who weren't heroes. Criminals who had codes. Systems that corrupted everyone who touched them.
+- **巡逻** teaches you that information is power — who owns what, who owes whom, what's hidden in plain sight
+- **做局** teaches you the 5-step trap: Identify → Gather → Plant → Execute → Cover
+- **报告** teaches you that the same facts, written three different ways, produce three different decisions
+- **谈判** teaches you that a weaker player's best weapon is the stronger player's arrogance
 
-Then I read Sun Tzu. Then I studied how Hitler went from a Vienna homeless shelter to the Chancellery in fourteen years with no army, no money, and no family connections. I read about Stalin's patient, decade-long elimination of eleven rivals. About how Mandela offered his jailer dignity to secure a nation's transition. About how Lee Kuan Yew built Singapore by controlling the institutions that control people.
+**Sun Tzu's thirteen chapters** appear as living principles, not quotes:
+- **始计篇** (Estimates) — assess before you act
+- **作战篇** (Waging War) — every action has a cost
+- **用间篇** (Employing Spies) — your network is your most valuable asset
 
-The common thread? **These skills are teachable.** And the best way to teach them isn't a lecture — it's putting someone in the room and making them choose.
-
-As a solo developer and student, I built ICAC Chronicles to prove that one person with no budget, no team, and no external assets can create a game that teaches something real. Every line of code, every story node, every UI element was crafted by hand. The procedural textures, the typewriter effect, the branching narrative engine — all built from scratch.
-
-The game spans **1974 to 1980** — from ICAC's founding through the 1977 police mutiny to the eve of Hong Kong's economic transformation. Six years that saw the old corrupt police order crumble, a new system of accountability fight for survival, and one police officer rise from rookie constable to the most powerful man in the territory.
+**Historical leaders** appear as operational models: Hitler's enemy redefinition, Stalin's patient elimination, Churchill's information control, Lee Kuan Yew's institutional capture, Mandela's strategic patience.
 
 ---
 
-## Game Features
+## How It Works
 
-### Current Implementation
+### The Daily Cycle
 
-| Feature | Status |
-|---------|--------|
-| **6-Phase Epic Storyline (1974–1980, 50,000+ characters)** | **Complete** |
-| **14 Missions across 116 narrative nodes** | **Complete** |
-| 14 Rank Progression (PC to Commissioner) | Complete |
-| 9 Hong Kong Districts with dynamic corruption | Complete |
-| 2 Epic Paths (正直之路 / 权力之路) with 3 endings each | Complete |
-| Typewriter Dialogue with Scrollable Textbox | Complete |
-| Choice-Consequence System with Stats | Complete |
-| Branching Narrative Engine | Complete |
-| Sun Tzu Principles & Leader Parallels | Complete |
-| **Game Over Scene** (killed/arrested/exiled/fired/betrayed) | **Complete** |
-| Procedural Canvas Textures (no external assets) | Complete |
-| Save/Load with localStorage | Complete |
-| Web Audio API Sound Effects | Complete |
-| Mobile Joystick Support | Complete |
-| Free Play Sandbox Mode | Complete |
+Each day you get **Action Points** (3–7 depending on rank). Spend them. When AP runs out, **End Day** — income processes, schemes advance, new day begins.
 
-### Phase Structure
+| Action | Cost | What You Actually Do |
+|--------|------|---------------------|
+| **巡逻** (Patrol) | 1 AP | Walk your district. Gather intel. Find scheme opportunities. Collect protection fees ($3–5 base + district control bonus). |
+| **做局** (Scheme) | 2 AP | Build 5-step traps against targets. Each step rolls for success. |
+| **结网** (Network) | 1 AP | Meet NPCs: 阿May, 肥佬, 蛇爷, 黄Sir... Build relationships. |
+| **调查** (Investigate) | 2 AP | Build case files. Progress from 0% to 100%. |
+| **理财** (Finance) | 1 AP | Manage money, assets, district control. |
+| **训练** (Train) | 1 AP | Improve skills for promotion. |
+| **休息** (Rest) | 1 AP | Recover mental state. |
 
-**Phase 1 (1974)** — Rookie PC — `tutorial` (21 nodes), `first_day` (16), `teahouse_money` (8)
-> Ground level patrols. Sergeant Lam's tea money test. Your first moral fork: accept the system or fight it.
+### Money System
 
-**Phase 2 (1974–75)** — Double Life — `double_life` (12), `icac_contact` (4), `promotion_exam` (11)
-> Deep cover as ICAC informant "Sparrow." Traffic unit by day, spy by night. Promotion to Inspector.
+You start with **$100**. Money is a separate resource — not a stat, not a score. You need it for everything.
 
-**Phase 3 (1975)** — Inspector — `the_informant` (3), `the_mentor` (7)
-> Power struggles intensify. Sergeant Lam becomes your mentor. Old Ghost's legacy. The web tightens.
+| Source | Income |
+|--------|--------|
+| Patrol | $3–5 per patrol (+ district control bonus) |
+| Daily income | From assets you own |
+| Monthly salary | $80+ depending on rank |
+| Mission rewards | Varies by choice |
 
-**Phase 4 (1975)** — The Confrontation — `network_war` (4), `crisis_point` (3), `final_confrontation` (6)
-> Climax against Commissioner Hsueh Kok Tung. Two paths branch: integrity or power. Both lead to 1976.
+| Asset | Cost | Daily Income |
+|-------|------|-------------|
+| 茶钱网络 (Tea Money) | Free | $5–35 |
+| 麻将馆 (Mahjong Parlor) | $500 | $25 |
+| 夜总会 (Nightclub) | $2,000 | $80 |
+| 旧区改造 (Property Development) | $5,000 | $200 |
 
-**Phase 5 (1976)** — The Dragon Head — `triad_election` (10 nodes)
-> Wo Shing Wo's triad election. Two candidates: the young reformer Siu Kong wants real estate and legitimacy; the old guard Tiger Uncle wants tradition and brutality. You don't pick a side — you pick the outcome. Machiavelli's *The Prince* in action: manipulate both, control the board, or seize the throne yourself. Three radically different endings: bloody purge, dark Machiavellian deception, or police-state takeover.
+### The 5-Step Scheme Builder
 
-**Phase 6 (1977)** — The Mutiny — `icac_mutiny` (11 nodes)
-> The October 1977 police mutiny — Hong Kong's darkest month. 5,000 off-duty officers storm ICAC headquarters. You must choose: side with the rioters and become the police's uncrowned king, protect ICAC and become the system's eternal outcast, or play both sides as the ultimate double agent. Three endings: the lone hero, the power-hungry minister, or the mastermind who fooled both camps.
+The core mechanic. Instead of reading "you set up a trap," you build it:
 
-**Endgame** — `free_play` — Sandbox mode. Patrol Hong Kong, manage districts, build your legacy.
+1. **确认目标** — Research patterns, weaknesses. 70% base success.
+2. **收集材料** — Photos, documents, witnesses. Intel from patrol gives bonuses.
+3. **布置陷阱** — Plant evidence, deliver blackmail. Riskiest step.
+4. **引爆局势** — Trigger at the critical moment.
+5. **擦尾巴** — Eliminate traces. If this fails, consequences spike.
 
-### Architecture
+Methods: 勒索 (blackmail), 设局陷害 (frame), 操控操纵 (manipulate), 挖角动摇 (undermine), 破坏阻挠 (sabotage), 引诱上钩 (entrap)
+
+### Two Paths to Power
+
+**正道** (Righteous): Patrol. Train. Pass exams. Build assets. Complete schemes. Climb through merit.
+
+**邪道** (Corrupt): Take tea money. Make deals with 蛇爷. Frame rivals. Every corrupt choice has a price — relationships fracture, mental state deteriorates, and some doors close forever.
+
+### Game Over States
+
+| Ending | Trigger |
+|--------|---------|
+| **殉职** (Killed) | Confront armed criminals recklessly |
+| **众叛亲离** (Betrayed) | Sell out your last ally |
+| **革职** (Fired) | Caught by internal investigation |
+| **流放** (Exiled) | Transferred to permanent dead-end post |
+
+---
+
+## The Story: 1974–1980
+
+### Phase 1 (1974) — Rookie PC — 6 missions, 71 nodes
+
+Ground-level patrols teaching observation, consequence, and street-level power dynamics.
+
+- **入职第一课** — 陈教官 hands you *The Art of War*. Your first lesson: assess before you act.
+- **北角第一天** — Meet 林警长, 老鬼, 阿May. Learn the invisible map of power.
+- **街头智慧** — Your first solo patrol. Three street encounters: a smuggling front, triad debt collectors, a suspicious warehouse. Information is power.
+- **笔墨权谋** — Writing patrol reports. The same facts written three ways produce three different decisions from superiors. Learn 做局术 through paperwork.
+- **初见蛇爷** — The shadow king of Hong Kong's underground teaches you "留白" — the art of strategic ambiguity.
+- **第一笔茶钱** — Sergeant Lam's tea money test. Your first moral fork: take it, refuse it, or pretend while taking notes.
+
+### Phase 2 (1974–75) — Double Life — 3 missions, 27 nodes
+
+Deep cover as ICAC informant "Sparrow." Traffic unit by day, spy by night. 肥佬 teaches money. 蛇爷 teaches leverage. Promotion to Inspector.
+
+### Phase 3 (1975) — Inspector — 2 missions, 10 nodes
+
+Power struggles intensify. 林警长 becomes mentor or puppet. 老鬼's legacy.
+
+### Phase 4 (1975) — The Confrontation — 3 missions, 13 nodes
+
+Climax against Commissioner 薛国栋. Scheme it step by step. Two paths: integrity or power. Both lead to 1976.
+
+### Phase 5 (1976) — The Dragon Head — 1 mission, 10 nodes
+
+和胜和 triad election. Young reformer 小光 vs old guard 虎叔. Pick the outcome, not the side.
+
+### Phase 6 (1977) — The Mutiny — 1 mission, 11 nodes
+
+October 1977 police mutiny. 5,000 officers storm ICAC headquarters. Side with rioters, protect ICAC, or play both sides.
+
+### Endgame — Free Play
+
+Sandbox mode. Patrol 9 districts. Manage assets. Build your empire. Your legacy continues.
+
+**Total: 17 missions, 400+ narrative nodes, 260,000+ characters of story.**
+
+---
+
+## Technical Architecture
+
+```
+icac-chronicles/
+├── index.html                    # Entry point — <script> tag load order
+├── phaser.min.js                 # Phaser 3 game engine (local)
+├── src/
+│   ├── data/
+│   │   ├── missions.js           # 17 missions, 400+ nodes, 260KB (1974–1980)
+│   │   ├── districts.js          # 9 HK districts
+│   │   ├── ranks.js              # 14 police ranks
+│   │   ├── sunzi.js              # Sun Tzu 13 chapters
+│   │   └── leaders.js            # Historical leaders database
+│   ├── scenes/
+│   │   ├── BootScene.js          # State initialization
+│   │   ├── PreloadScene.js       # Procedural texture generation
+│   │   ├── MenuScene.js          # Title screen with animated particles
+│   │   ├── GameScene.js          # Hong Kong map + HUD + daily actions
+│   │   ├── MissionScene.js       # Dialogue engine with scrollable textbox
+│   │   ├── GameOverScene.js      # Career-ending scenarios
+│   │   ├── DebriefScene.js       # Mission completion summary
+│   │   └── SettingsScene.js      # Pause/settings menu
+│   ├── systems/
+│   │   ├── ActionSystem.js       # Daily AP cycle + actions + promotion
+│   │   ├── SchemeSystem.js       # 5-step trap builder
+│   │   ├── PropertySystem.js     # Money, assets, income, expenses
+│   │   ├── SubMissionSystem.js   # Granular objectives between missions
+│   │   ├── NetworkSystem.js      # NPC relationship network data
+│   │   ├── SaveSystem.js         # localStorage auto-save
+│   │   ├── AudioSystem.js        # Sound management
+│   │   ├── UIToolkit.js          # HOI4-style UI components
+│   │   ├── CoverSystem.js        # Cover identity management
+│   │   └── ReputationSystem.js   # NPC reputation tracking
+│   └── main.js                   # Game bootstrap + scene manager
+└── sw.js                         # Service worker for offline play
+```
+
 - **Phaser 3** — game engine
 - **Vanilla JavaScript** — zero frameworks, zero dependencies beyond Phaser
-- **Global `ICAC` namespace** — all modules communicate through a single global
+- **Global `ICAC` namespace** — all modules communicate through a single global object
 - **`<script>` tag loading** — works on `file://` protocol, no build step, no server required
 - **Procedural assets** — all textures generated at runtime via Canvas, zero external image files
-- **Branching narrative engine** — node-based with stat/relationship/flag consequences
-
----
-
-## Roadmap
-
-### Phase 1 — Audio & Atmosphere (Next)
-- **Hong Kong Radio Station**: An in-game radio playing classic 1970s-80s Cantopop and Hong Kong pop songs, toggleable during gameplay for full immersion
-- **Professional Sound Design**: Replace Web Audio synthesis with recorded SFX — typewriter keys, police sirens, Hong Kong street ambience, radio static
-- **Dynamic Soundtrack**: Mood-reactive background music that shifts between tension, contemplation, and action
-
-### Phase 2 — Cloud & Persistence
-- **Firebase Integration**: Cloud saves, player profiles, and cross-device progress sync
-- **Global Leaderboard**: Compare story completion paths, rank progression speed, and moral alignment
-- **Analytics**: Track which choices players make most — which teaches us which power techniques resonate
-
-### Phase 3 — Languages & Accessibility
-- **Multi-Language Support**: Full Traditional Chinese (Hong Kong), Simplified Chinese, and English localizations for all 50,000+ characters of dialogue
-- **Accessibility Features**: Screen reader support, dyslexia-friendly fonts, colorblind modes, adjustable typewriter speed
-- **Mobile Optimization**: Touch-friendly dialogue scrolling, improved virtual joystick, native app wrapper
-
-### Phase 4 — Open World Expansion
-- **Fully Accessible Open World**: All 9 districts explorable in real-time with dynamic events, random encounters, and emergent gameplay
-- **Free Roam Mode**: After completing the story, patrol Hong Kong, respond to radio calls, build your precinct
-- **District Control System**: Reduce corruption, build community relationships, manage police resources
-
-### Phase 5 — ICAC-2: New Storylines
-- **1980s Expansion**: The decade of greed — triad wars, stock market manipulation, the Joint Declaration
-- **Post-1997 Era**: The handover — navigating Hong Kong's transition, new power structures, new alliances
-- **Prequel: The War Years**: 1940s Hong Kong under Japanese occupation — how the old police order was forged
-- **Multi-Character Campaign**: Play as different characters — ICAC investigator, triad boss, journalist
+- **Auto-save** — every 30 seconds to browser localStorage
 
 ---
 
 ## How to Play
 
-1. Clone or download this repository
+1. Download or clone the repository
 2. Open `index.html` in any modern browser
 3. Works directly from `file://` — no server needed
 4. Click **新游戏 (New Game)** to begin
-5. Navigate the Hong Kong map, click districts with mission markers, make choices, learn power
-6. Your progress auto-saves to browser localStorage
-
-### Controls
-| Input | Action |
-|-------|--------|
-| WASD / Arrow Keys | Move player on map |
-| Click District | View info / start mission |
-| Click Dialogue | Skip typewriter / advance |
-| Click Choice | Select narrative option |
-| Mouse Wheel | Scroll dialogue text |
-| ESC | Return to map |
-| Touch / Virtual Joystick | Mobile movement |
+5. Use daily Action Points: patrol, scheme, network, investigate, finance
+6. Complete story missions by walking your player to mission markers on the map
+7. Choose your path: honest grind or corrupt deals
+8. Your progress auto-saves every 30 seconds
 
 ---
 
-## Technical Stack
+## Current Status
 
-```
-ICAC Chronicles/
-├── index.html              # Entry point — <script> tag load order
-├── phaser.min.js           # Phaser 3 game engine
-├── src/
-│   ├── data/
-│   │   ├── missions.js     # 14 missions, 116 nodes, 50,000+ chars (1974–1980)
-│   │   ├── districts.js    # 9 HK districts with corruption data
-│   │   ├── ranks.js        # 14 police ranks with requirements
-│   │   ├── sunzi.js        # Sun Tzu 13 chapters reference
-│   │   └── leaders.js      # Historical leaders database
-│   ├── scenes/
-│   │   ├── MenuScene.js    # Title screen with animated particles
-│   │   ├── GameScene.js    # Hong Kong map + HUD + district interactions
-│   │   ├── MissionScene.js # Dialogue engine with scrollable textbox
-│   │   ├── GameOverScene.js# Dramatic career endings
-│   │   ├── PreloadScene.js # Procedural texture generation
-│   │   └── BootScene.js    # State initialization
-│   ├── systems/
-│   │   └── UIToolkit.js    # HOI4-style UI components
-│   └── main.js             # Game bootstrap + settings
-└── sw.js                   # Service worker for offline play
-```
+This is a **complete, playable game** with:
+- 17 story missions with 400+ narrative decision points
+- 7 daily action types with concrete gameplay effects
+- Full money system: income, expenses, assets, district control
+- 5-step scheme builder with dice-roll mechanics
+- 14-rank promotion progression (PC → CP)
+- 6 game over states
+- Works offline on `file://`
+
+### Known Limitations
+- Finance and Network UIs return placeholder messages (core data systems work, UI panels need building)
+- Mobile joystick exists but may need tuning
+- Audio system is stubbed (no sound files included)
 
 ---
 
-## Philosophy
+## Roadmap
 
-> **"You can be a good person and still understand how power works. In fact, you have a moral obligation to understand it — because the people who don't understand power are the ones who get hurt by it."**
+### Phase 1 — UI Completion
+- Finance panel (asset purchase, district management)
+- Network panel (NPC relationship visualization)
+- Scheme execution UI (step-by-step with dice animation)
 
-This game doesn't glorify corruption. It doesn't romanticize dictatorship. It shows you the mechanics — the levers, the switches, the hidden wiring — so you can recognize them in the real world. Sun Tzu said know your enemy as you know yourself. In 1974 Hong Kong, the enemy was sometimes wearing the same uniform. Sometimes it was the person offering you tea money. Sometimes it was the face in the mirror.
+### Phase 2 — Audio & Atmosphere
+- 1970s Cantopop radio station
+- Sound effects (typewriter, sirens, street ambience)
+- Dynamic tension soundtrack
 
-The best defense against manipulation is understanding how manipulation works. That's what ICAC Chronicles teaches — not through lectures, but through living it.
+### Phase 3 — Cloud & Multi-Device
+- Cloud saves via Firebase
+- Cross-device progress sync
+
+### Phase 4 — Content Expansion
+- 1980s storyline (stock manipulation, Joint Declaration)
+- Post-1997 era (handover politics)
+- Multiple character campaigns
 
 ---
 
@@ -196,26 +236,14 @@ The best defense against manipulation is understanding how manipulation works. T
 
 Copyright (c) 2025 Gordon Huang
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
 ---
 
-> *"权力游戏不是可选项,是必修课。你可以不当赢家,但你至少要知道规则。否则,你连怎么死的都不知道。"*
-> 
+> *"你做过的每一个选择，都定义了你是谁。不是你是谁，是你选择了成为谁。"*
+>
 > — 陈教官, ICAC Chronicles
